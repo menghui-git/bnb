@@ -1,0 +1,95 @@
+.header {
+    flex: 0 1 auto;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    background-color: #ffffff;
+}
+  
+.nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+    margin-inline: 20px;
+}
+
+.nav-search {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0px;
+  border-bottom: 1px solid #DDDDDD;
+}
+  
+.filter-set {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+  
+  .nav-item {
+    display: inline-block;
+  }
+  
+  /* preference */
+  
+  .preference {
+    float: right;
+  }
+  
+  .preference div {
+    display: inline-block;
+    margin-inline: 10px;
+  }
+  
+  .icon {
+    margin-inline: 10px;
+  }
+  
+  .filter {
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    padding: 10px;
+  }
+  
+  .filter > div {
+    display: inline;
+    margin: 10px;
+  }
+  
+  .group-container {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    overflow: auto;
+    width: 60%;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+  }
+  
+  .group {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    row-gap: 0.5rem;
+  }
+  
+  .group:hover {
+    border-bottom: 3px solid #DDDDDD;
+  }
+  
+  .group-name {
+    white-space: nowrap;
+    font-size: 12px;
+  }
+  
+  .toggle-base {
+    width: 2rem;
+    height: 1.5rem;
+    background-color: #DDDDDD;
+    border-radius: 0.75rem;
+  }
+  
+  .toggle {
+    height: 1.5rem;
+    border-radius: 0.75rem;
+  }
