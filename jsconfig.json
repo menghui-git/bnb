@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": true,
+    "jsx": "react",
+    "types": [
+      "node"
+    ],
+  },
+  "include": [
+    "src"
+  ],
+    "exclude": [
+      "node_modules",
+      "**/*.spec.ts",
+      "**/*.test.ts",
+      "tests/*.ts",
+    ],
+}

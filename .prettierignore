@@ -1,0 +1,6 @@
+public/
+__mocks__
+mocks
+coverage
+scripts
+test
