@@ -1,3 +1,4 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAirbnb } from "@fortawesome/free-brands-svg-icons";
 import { faHouse, faSliders } from "@fortawesome/free-solid-svg-icons";
@@ -6,7 +7,7 @@ import { Preference } from "../Preference";
 import { SearchBar } from "../SearchBar";
 import "./index.css";
 
-export const Header = ({ groups = "", onSearch = "" }) => {
+export const Header = ({ groups = [], onSearch = () => null }) => {
   return (
     <div className="header">
       <div className="nav">

@@ -1,6 +1,4 @@
-// @ts-check
-
-import React, { useRef, useState } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,16 +12,16 @@ import {
 import "./index.css";
 import { Skeleton } from "../Skeleton";
 
-const ImageSlides = ({ imageListRef, position, room, onPictureLoad }) => {
+const ImageSlides = forwardRef(function ImageSlides(props, ref) {
+  const { position, room, onPictureLoad } = props;
   const positionStyle = { transform: `translateX(${position}px)` };
   const getOnLoadHandler = (index) => (index === 0 ? onPictureLoad : () => {});
 
   return (
-    <div className="image-container">
-      <div ref={imageListRef} data-slider style={positionStyle}>
+    <div className="image-container" ref={ref}>
+      <div data-slider style={positionStyle}>
         {room.images.map((image, index) => (
           <img
-            //
             className="slide"
             src={image.url}
             onLoad={getOnLoadHandler(index)}
@@ -32,7 +30,7 @@ const ImageSlides = ({ imageListRef, position, room, onPictureLoad }) => {
       </div>
     </div>
   );
-};
+});
 
 const Indicator = ({ roomImages, imgIndex }) => {
   const getClass = (idx) =>
@@ -97,7 +95,7 @@ export const Card = ({ room, currency, onPictureLoad, isLoading }) => {
     setImgIndex(newIndex);
 
     if (!imageListRef.current) return;
-    const childWidth = imageListRef.current.children[0].offsetWidth;
+    const childWidth = imageListRef.current.offsetWidth;
     const newPosition = childWidth * newIndex * -1;
     setPosition(newPosition);
   };
@@ -130,7 +128,7 @@ export const Card = ({ room, currency, onPictureLoad, isLoading }) => {
         <Link to={roomLink} key={room.id}>
           <div className="slide-container">
             <ImageSlides
-              imageListRef={imageListRef}
+              ref={imageListRef}
               position={position}
               room={room}
               onPictureLoad={onPictureLoad}
