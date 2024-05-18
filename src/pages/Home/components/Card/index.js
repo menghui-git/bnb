@@ -25,6 +25,7 @@ const ImageSlides = forwardRef(function ImageSlides(props, ref) {
             className="slide"
             src={image.url}
             onLoad={getOnLoadHandler(index)}
+            key={index}
           />
         ))}
       </div>
@@ -33,12 +34,12 @@ const ImageSlides = forwardRef(function ImageSlides(props, ref) {
 });
 
 const Indicator = ({ roomImages, imgIndex }) => {
-  const getClass = (idx) =>
-    `slide-dot ${idx !== imgIndex ? "not-current" : ""}`;
+  const getClass = (index) =>
+    `slide-dot ${index !== imgIndex ? "not-current" : ""}`;
   return (
     <div className="indicator-row">
-      {roomImages.map((image, idx) => (
-        <div className={getClass(idx)} />
+      {roomImages.map((image, index) => (
+        <div className={getClass(index)} key={index} />
       ))}
     </div>
   );
@@ -115,7 +116,6 @@ export const Card = ({ room, currency, onPictureLoad, isLoading }) => {
   };
 
   const onRightButtonClick = (e) => {
-    console.log(`> ${imgIndex} ${imgCount}`);
     if (!isLastImage(imgIndex, imgCount)) {
       slideImage(imgIndex + 1, e);
     }

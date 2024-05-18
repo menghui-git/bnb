@@ -27,7 +27,6 @@ import { Header } from "../../common/components/header/Header";
 import "./index.css";
 
 const getPhotoGrids = (room) => {
-  console.log("getPhotoGrids", room);
   return (
     <div className="photo-grid-container">
       <img className="photo-1" src={room.xl_picture_url} />

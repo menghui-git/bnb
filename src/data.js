@@ -34,7 +34,6 @@ const API_URL =
 const getData = async (url) => {
   const response = await fetch(url);
   const data = await response.json();
-  console.log("data", data);
   return data;
 };
 
@@ -56,7 +55,6 @@ const searchRooms = async (
 ) => {
   let url = `${API_URL}?pageCount=${pageCount}`;
   let searchedBnbs = await getData(url);
-  console.log("searchedBnbs", searchedBnbs.rooms);
   return searchedBnbs.rooms;
 };
 
