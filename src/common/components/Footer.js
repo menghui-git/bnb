@@ -1,7 +1,7 @@
-import React from 'react'
+// @ts-check
+
+import React from "react";
 
 export const Footer = () => {
-  return (
-    <div>Footer</div>
-  )
-}
+  return <div>Footer</div>;
+};

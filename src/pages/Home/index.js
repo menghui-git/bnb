@@ -19,7 +19,6 @@ export const HomePage = () => {
   useEffect(() => {
     const getRooms = async () => {
       let rooms = await searchRooms((pageCount = pageCount));
-      console.log("setRooms", rooms);
       setBnbs(rooms);
     };
     getRooms();

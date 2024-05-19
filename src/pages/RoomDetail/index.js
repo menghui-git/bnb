@@ -1,5 +1,3 @@
-// @no ts-check
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,7 +27,6 @@ import { Header } from "../../common/components/header/Header";
 import "./index.css";
 
 const getPhotoGrids = (room) => {
-  console.log("getPhotoGrids", room);
   return (
     <div className="photo-grid-container">
       <img className="photo-1" src={room.xl_picture_url} />
@@ -83,6 +80,7 @@ const getReview = (room) => {
   let communication = room.review_scores_communication / 2;
   let location = room.review_scores_location / 2;
   let value = room.review_scores_value / 2;
+
   return (
     <div className="info-box">
       <h2 className="review-overall">
@@ -93,19 +91,19 @@ const getReview = (room) => {
         <div className="score-item">
           <div>Overall rating</div>
           <div className="rating-item">
-            5 <div className="rating-bar"></div>
+            5 <div className="rating-bar" />
           </div>
           <div className="rating-item">
-            4 <div className="rating-bar"></div>
+            4 <div className="rating-bar" />
           </div>
           <div className="rating-item">
-            3 <div className="rating-bar"></div>
+            3 <div className="rating-bar" />
           </div>
           <div className="rating-item">
-            2 <div className="rating-bar"></div>
+            2 <div className="rating-bar" />
           </div>
           <div className="rating-item">
-            1 <div className="rating-bar"></div>
+            1 <div className="rating-bar" />
           </div>
         </div>
         <div className="score-item">
@@ -189,6 +187,7 @@ export const RoomDetail = () => {
           </div>
         </div>
         {PhotoGrids}
+
         <div className="general-info">
           <section>
             <h2>
