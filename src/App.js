@@ -1,16 +1,16 @@
 // @ts-check
 
-import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import "./App.css";
-import { PageLayout } from "./pages/PageLayout";
-import { HomePage } from "./pages/Home";
-import { RoomDetail } from "./pages/RoomDetail";
+import './App.scss';
+import { PageLayout } from './pages/PageLayout';
+import { HomePage } from './pages/Home';
+import { RoomDetail } from './pages/RoomDetail';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <PageLayout>
         <HomePage />
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/room/:roomId",
+    path: '/room/:roomId',
     element: (
       <PageLayout>
         <RoomDetail />,

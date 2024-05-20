@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { searchRooms } from "../../data";
-import { Card } from "./components/Card";
-import "./index.css";
+import { searchRooms } from '../../data';
+import { Card } from './components/Card';
+import './index.scss';
 
 export const HomePage = () => {
-  let pageCount = 5;
+  const pageCount = 5;
   const [rooms, setBnbs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadNum, setLoadNum] = useState(0);
-  const [conditions, setConditions] = useState({
-    location: "",
-    checkIn: "",
-    checkOut: "",
-  });
-  const [currency, setCurrency] = useState("TWD");
+  // const [conditions, setConditions] = useState({
+  //   location: '',
+  //   checkIn: '',
+  //   checkOut: '',
+  // });
+  const currency = 'TWD';
 
   useEffect(() => {
     const getRooms = async () => {
-      let rooms = await searchRooms((pageCount = pageCount));
+      const rooms = await searchRooms(pageCount);
       setBnbs(rooms);
     };
     getRooms();

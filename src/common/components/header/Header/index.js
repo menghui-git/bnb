@@ -1,11 +1,11 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAirbnb } from "@fortawesome/free-brands-svg-icons";
-import { faHouse, faSliders } from "@fortawesome/free-solid-svg-icons";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
+import { faHouse, faSliders } from '@fortawesome/free-solid-svg-icons';
 
-import { Preference } from "../Preference";
-import { SearchBar } from "../SearchBar";
-import "./index.css";
+import { Preference } from '../Preference';
+import { SearchBar } from '../SearchBar';
+import './index.scss';
 
 export const Header = ({ groups = [], onSearch = () => null }) => {
   return (

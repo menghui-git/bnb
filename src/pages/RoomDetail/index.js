@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBed,
   faCircleCheck,
@@ -20,11 +20,11 @@ import {
   faKitMedical,
   faHeart,
   faArrowUpFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
-import { getRoom } from "../../data";
-import { Header } from "../../common/components/header/Header";
-import "./index.css";
+import { getRoom } from '../../data';
+import { Header } from '../../common/components/header/Header';
+import './index.scss';
 
 const getPhotoGrids = (room) => {
   return (
@@ -40,16 +40,16 @@ const getPhotoGrids = (room) => {
 
 const getAmenities = (amenities = []) => {
   const amenityIconMap = {
-    "Air conditioning": faFan,
-    "Buzzer/wireless intercom": faWifi,
-    "Elevator in building": faElevator,
-    "First aid kit": faKitMedical,
+    'Air conditioning': faFan,
+    'Buzzer/wireless intercom': faWifi,
+    'Elevator in building': faElevator,
+    'First aid kit': faKitMedical,
     Gym: faDumbbell,
     Heating: faFire,
     Internet: faWifi,
     Kitchen: faKitchenSet,
     TV: faTv,
-    "Wireless Internet": faWifi,
+    'Wireless Internet': faWifi,
   };
   const DisplayCount = 8;
   // show the first 8 amenities
@@ -72,14 +72,14 @@ const getAmenities = (amenities = []) => {
 };
 
 const getReview = (room) => {
-  let point = room.review_scores_rating / 20;
-  let reviews = room.number_of_reviews;
-  let cleanliness = room.review_scores_cleanliness / 2;
-  let accuracy = room.review_scores_accuracy / 2;
-  let checkIn = room.review_scores_checkin / 2;
-  let communication = room.review_scores_communication / 2;
-  let location = room.review_scores_location / 2;
-  let value = room.review_scores_value / 2;
+  const point = room.review_scores_rating / 20;
+  const reviews = room.number_of_reviews;
+  const cleanliness = room.review_scores_cleanliness / 2;
+  const accuracy = room.review_scores_accuracy / 2;
+  const checkIn = room.review_scores_checkin / 2;
+  const communication = room.review_scores_communication / 2;
+  const location = room.review_scores_location / 2;
+  const value = room.review_scores_value / 2;
 
   return (
     <div className="info-box">
@@ -152,8 +152,8 @@ const getReview = (room) => {
 };
 
 export const RoomDetail = () => {
-  let roomId = useParams().roomId;
-  let [room, setRoom] = useState({});
+  const roomId = useParams().roomId;
+  const [room, setRoom] = useState({});
 
   useEffect(() => {
     const queryRoom = async () => {
@@ -163,9 +163,9 @@ export const RoomDetail = () => {
     queryRoom();
   }, []);
 
-  let PhotoGrids = getPhotoGrids(room);
-  let Amenities = getAmenities(room.amenities);
-  let Review = getReview(room);
+  const PhotoGrids = getPhotoGrids(room);
+  const Amenities = getAmenities(room.amenities);
+  const Review = getReview(room);
 
   const hostSince = new Date(room.host_since);
   const now = new Date();
@@ -194,7 +194,7 @@ export const RoomDetail = () => {
               {room.room_type} in {room.host_location}
             </h2>
             <div>
-              {room.accommodates} guests {room.bedrooms} bedrooms {room.beds}{" "}
+              {room.accommodates} guests {room.bedrooms} bedrooms {room.beds}{' '}
               beds {room.bathrooms} bathrooms
             </div>
           </section>
@@ -221,7 +221,7 @@ export const RoomDetail = () => {
           </div>
 
           <div className="info-box">
-            <h2>Where you'll sleep</h2>
+            <h2>Where you&apos;ll sleep</h2>
             <div className="room-info-box">
               <FontAwesomeIcon icon={faBed} />
               <div>Bedroom</div>

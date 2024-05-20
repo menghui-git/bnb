@@ -1,16 +1,16 @@
-import React, { forwardRef, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { forwardRef, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faStar,
   faHeart,
   faChevronLeft,
   faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
-import "./index.css";
-import { Skeleton } from "../Skeleton";
+import './index.scss';
+import { Skeleton } from '../Skeleton';
 
 const ImageSlides = forwardRef(function ImageSlides(props, ref) {
   const { position, room, onPictureLoad } = props;
@@ -35,7 +35,7 @@ const ImageSlides = forwardRef(function ImageSlides(props, ref) {
 
 const Indicator = ({ roomImages, imgIndex }) => {
   const getClass = (index) =>
-    `slide-dot ${index !== imgIndex ? "not-current" : ""}`;
+    `slide-dot ${index !== imgIndex ? 'not-current' : ''}`;
   return (
     <div className="indicator-row">
       {roomImages.map((image, index) => (
@@ -63,7 +63,7 @@ const RoomOverview = ({ room, currency }) => {
 };
 
 const LeftButton = ({ disabled, onClick }) => {
-  const classes = "slider-btn slider-btn-left " + (disabled ? "hidden" : "");
+  const classes = 'slider-btn slider-btn-left ' + (disabled ? 'hidden' : '');
 
   return (
     <div className={classes} onClick={onClick}>
@@ -73,7 +73,7 @@ const LeftButton = ({ disabled, onClick }) => {
 };
 
 const RightButton = ({ disabled, onClick }) => {
-  const classes = "slider-btn slider-btn-right " + (disabled ? "hidden" : "");
+  const classes = 'slider-btn slider-btn-right ' + (disabled ? 'hidden' : '');
 
   return (
     <div className={classes} onClick={onClick}>
@@ -87,7 +87,7 @@ export const Card = ({ room, currency, onPictureLoad, isLoading }) => {
   const [position, setPosition] = useState(0);
   const imageListRef = useRef(null);
 
-  const cardStyle = "card " + (isLoading ? "not-display" : "");
+  const cardStyle = 'card ' + (isLoading ? 'not-display' : '');
   const roomLink = `/room/${room.id}`;
   const imgCount = room.images.length;
 
