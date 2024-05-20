@@ -7,7 +7,7 @@
     "jsx": "react",
     "types": [
       "node"
-    ],
+    ]
   },
   "include": [
     "src"
@@ -16,6 +16,6 @@
     "node_modules",
     "**/*.spec.ts",
     "**/*.test.ts",
-    "tests/*.ts",
-  ],
+    "tests/*.ts"
+  ]
 }
