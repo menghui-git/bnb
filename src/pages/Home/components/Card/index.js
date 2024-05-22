@@ -36,8 +36,8 @@ const ImageSlides = forwardRef(function ImageSlides(props, ref) {
 const Indicator = ({ roomImages, imgIndex }) => {
   const getClass = (index) =>
     `slide-dot ${index !== imgIndex ? 'not-current' : ''}`;
-  
-return (
+
+  return (
     <div className="indicator-row">
       {roomImages.map((image, index) => (
         <div className={getClass(index)} key={index} />

@@ -1,10 +1,10 @@
 // @ts-check
 
-import React from "react";
+import React from 'react';
 
-import { Footer } from "../../common/components/Footer";
-import { Header } from "../../common/components/header/Header";
-import { groups } from "../../data";
+import { Footer } from '../../common/components/Footer';
+import { Header } from '../../common/components/header/Header';
+import { groups } from '../../data';
 
 const PageLayout = ({ children }) => {
   const onSearch = (location, checkIn, checkOut, numPerson) => null;

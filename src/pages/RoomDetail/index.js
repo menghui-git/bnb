@@ -61,8 +61,8 @@ const getAmenities = (amenities = []) => {
       <div className="amenity-name">{amenity}</div>
     </div>
   ));
-  
-return (
+
+  return (
     <>
       <div className="amenity-container">{amenityItems}</div>
       <div className="amenity-info-box">
@@ -170,8 +170,8 @@ export const RoomDetail = () => {
 
   const hostSince = new Date(room.host_since);
   const now = new Date();
-  
-return (
+
+  return (
     <>
       {Header}
       <div className="room-body">

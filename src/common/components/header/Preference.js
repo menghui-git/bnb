@@ -1,13 +1,13 @@
 // @ts-check
 
-import React from "react";
+import React from 'react';
 
 import {
   faBars,
   faCircleUser,
   faGlobe,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const Preference = () => {
   return (
