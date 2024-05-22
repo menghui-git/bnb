@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { searchRooms } from '../../data';
 import { Card } from './components/Card';

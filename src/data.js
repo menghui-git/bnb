@@ -31,12 +31,14 @@ const API_URL =
 const getData = async (url) => {
   const response = await fetch(url);
   const data = await response.json();
+
   return data;
 };
 
 const getRoom = async (roomId) => {
   const url = `${API_URL}/${roomId}`;
   const roomData = await getData(url);
+
   return roomData;
 };
 
@@ -52,6 +54,7 @@ const searchRooms = async (
 ) => {
   const url = `${API_URL}?pageCount=${pageCount}`;
   const searchedBnbs = await getData(url);
+
   return searchedBnbs.rooms;
 };
 
