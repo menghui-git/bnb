@@ -4,8 +4,8 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './App.scss';
-import { PageLayout } from './pages/PageLayout';
 import { HomePage } from './pages/Home';
+import { PageLayout } from './pages/PageLayout';
 import { RoomDetail } from './pages/RoomDetail';
 
 const router = createBrowserRouter([

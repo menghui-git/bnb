@@ -1,36 +1,37 @@
-.skeleton div {
-    background-color: #eeeeee;
-    position: relative;
-    margin-bottom: 0.5rem;
-}
+.skeleton {
+    .line {
+        height: 1rem;
+        border-radius: 0.25rem;
+    }
+    .line1 { width: 50%; }
+    .line2 { width: 30%; }
 
-.skeleton .line {
-    height: 1rem;
-    border-radius: 0.25rem;
-}
+    .rect {
+        width: var(--card-width);
+        height: var(--card-height);
+        border-radius: var(--card-radius);
+    }
 
-.skeleton .line1 { width: 50%; }
-.skeleton .line2 { width: 30%; }
+    div {
+        background-color: #eeeeee;
+        position: relative;
+        margin-bottom: 0.5rem;
+    }
 
-.skeleton .rect {
-    width: var(--card-width);
-    height: var(--card-height);
-    border-radius: var(--card-radius);
-}
-
-.skeleton div::before {
-    content: "";
-    box-shadow: 0 0 10px 10px #ffffff;
-    opacity: 0.2;
-    width: 0;
-    height: 100%;
-
-    position: absolute;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-
-    animation: load 1s ease 0s infinite normal;
+    div::before {
+        content: "";
+        box-shadow: 0 0 10px 10px #ffffff;
+        opacity: 0.2;
+        width: 0;
+        height: 100%;
+    
+        position: absolute;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 50%;
+    
+        animation: load 1s ease 0s infinite normal;
+    }
 }
 
 @keyframes load {

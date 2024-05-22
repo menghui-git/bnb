@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faArrowUpFromBracket,
   faBed,
   faCircleCheck,
+  faDumbbell,
+  faElevator,
   faFan,
+  faFire,
+  faHeart,
+  faKey,
   faKitchenSet,
+  faKitMedical,
   faMap,
   faMessage,
-  faKey,
-  faStar,
   faSprayCanSparkles,
+  faStar,
   faTag,
   faTv,
   faWifi,
-  faDumbbell,
-  faElevator,
-  faFire,
-  faKitMedical,
-  faHeart,
-  faArrowUpFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getRoom } from '../../data';
 import { Header } from '../../common/components/header/Header';
+import { getRoom } from '../../data';
 import './index.scss';
 
 const getPhotoGrids = (room) => {
@@ -61,7 +61,8 @@ const getAmenities = (amenities = []) => {
       <div className="amenity-name">{amenity}</div>
     </div>
   ));
-  return (
+  
+return (
     <>
       <div className="amenity-container">{amenityItems}</div>
       <div className="amenity-info-box">
@@ -169,7 +170,8 @@ export const RoomDetail = () => {
 
   const hostSince = new Date(room.host_since);
   const now = new Date();
-  return (
+  
+return (
     <>
       {Header}
       <div className="room-body">

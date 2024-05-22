@@ -2,12 +2,12 @@
 
 import React from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCircleUser,
   faBars,
+  faCircleUser,
   faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Preference = () => {
   return (

@@ -5,7 +5,6 @@
 .search-bar-outer {
     border-radius: 33px;
     box-shadow: 0px 0px 20px lightgray;
-    /* width: fit-content; */
 }
   
 .search-bar {
@@ -16,29 +15,29 @@
     display: grid;
     grid-template-columns: calc(var(--field-width)*2) var(--field-width) var(--field-width) calc(var(--field-width)*2);
     margin: 0 auto;
-}
 
-.search-bar > div {
-    padding: 14px 2rem;
-}
+    > div {
+        padding: 14px 2rem;
+    }
 
-.search-bar > div:not(:last-child) {
-    border-right: 1.5px solid #dddddd;
+    > div:not(:last-child) {
+        border-right: 1.5px solid #dddddd;
+    }
+
+    label {
+        display: block;
+        border: 0px;
+    }
+
+    input {
+        border: 0px;
+    }
 }
 
 .search {
     display: flex;
 }
 
-.search-bar label {
-    display: block;
-    border: 0px;
-}
-  
-.search-bar input {
-    border: 0px;
-}
-  
 #search-icon {
     height: 30px;
     width: 30px;

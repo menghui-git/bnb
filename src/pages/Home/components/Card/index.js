@@ -1,13 +1,13 @@
 import React, { forwardRef, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faStar,
-  faHeart,
   faChevronLeft,
   faChevronRight,
+  faHeart,
+  faStar,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './index.scss';
 import { Skeleton } from '../Skeleton';
@@ -36,7 +36,8 @@ const ImageSlides = forwardRef(function ImageSlides(props, ref) {
 const Indicator = ({ roomImages, imgIndex }) => {
   const getClass = (index) =>
     `slide-dot ${index !== imgIndex ? 'not-current' : ''}`;
-  return (
+  
+return (
     <div className="indicator-row">
       {roomImages.map((image, index) => (
         <div className={getClass(index)} key={index} />

@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import { Header } from "../../common/components/header/Header";
 import { Footer } from "../../common/components/Footer";
+import { Header } from "../../common/components/header/Header";
 import { groups } from "../../data";
 
 const PageLayout = ({ children }) => {
