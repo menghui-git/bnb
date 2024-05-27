@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   faArrowUpFromBracket,
@@ -72,16 +72,58 @@ const getAmenities = (amenities = []) => {
   );
 };
 
+const ScoreBar = ({ score, percentage }) => {
+  const ratingBar = useRef(null);
+
+  if (ratingBar.current) {
+    ratingBar.current.style.setProperty('--bar-width', percentage);
+  }
+
+  return (
+    <div className="rating-item">
+      <span>{score}</span>
+      <span className="rating-bar">
+        <div className="bar-body" ref={ratingBar} />
+      </span>
+    </div>
+  );
+};
+
+const ReviewType = ({ name, value, icon }) => {
+  return (
+    <div className="score-item">
+      <div>
+        <div>{name}</div>
+        <div>{value}</div>
+      </div>
+      <FontAwesomeIcon icon={icon} />
+    </div>
+  );
+};
+
 const getReview = (room) => {
   const point = room.review_scores_rating / 20;
   const reviews = room.number_of_reviews;
-  const cleanliness = room.review_scores_cleanliness / 2;
-  const accuracy = room.review_scores_accuracy / 2;
-  const checkIn = room.review_scores_checkin / 2;
-  const communication = room.review_scores_communication / 2;
-  const location = room.review_scores_location / 2;
-  const value = room.review_scores_value / 2;
-
+  const reviewData = [
+    {
+      name: 'Cleanliness',
+      value: room.review_scores_cleanliness / 2,
+      icon: faSprayCanSparkles,
+    },
+    {
+      name: 'Accuracy',
+      value: room.review_scores_accuracy / 2,
+      icon: faCircleCheck,
+    },
+    { name: 'Check-in', value: room.review_scores_checkin / 2, icon: faKey },
+    {
+      name: 'Communication',
+      value: room.review_scores_communication / 2,
+      icon: faMessage,
+    },
+    { name: 'Location', value: room.review_scores_location / 2, icon: faMap },
+    { name: 'Value', value: room.review_scores_value / 2, icon: faTag },
+  ];
   return (
     <div className="info-box">
       <h2 className="review-overall">
@@ -91,62 +133,22 @@ const getReview = (room) => {
       <div className="review-container">
         <div className="score-item">
           <div>Overall rating</div>
-          <div className="rating-item">
-            5 <div className="rating-bar" />
-          </div>
-          <div className="rating-item">
-            4 <div className="rating-bar" />
-          </div>
-          <div className="rating-item">
-            3 <div className="rating-bar" />
-          </div>
-          <div className="rating-item">
-            2 <div className="rating-bar" />
-          </div>
-          <div className="rating-item">
-            1 <div className="rating-bar" />
-          </div>
+          {room.ratings?.map((rating) => (
+            <ScoreBar
+              score={rating.label}
+              percentage={rating.localized}
+              key={rating.label}
+            />
+          ))}
         </div>
-        <div className="score-item">
-          <div>
-            <div>Cleanliness</div>
-            <div>{cleanliness}</div>
-          </div>
-          <FontAwesomeIcon icon={faSprayCanSparkles} />
-        </div>
-        <div className="score-item">
-          <div>
-            <div>Accuracy</div>
-            <div>{accuracy}</div>
-          </div>
-          <FontAwesomeIcon icon={faCircleCheck} />
-        </div>
-        <div className="score-item">
-          <div>
-            <div>Check-in</div>
-            <div>{checkIn}</div>
-          </div>
-          <FontAwesomeIcon icon={faKey} />
-        </div>
-        <div className="score-item">
-          <div>
-            <div>Communication</div>
-            <div>{communication}</div>
-          </div>
-          <FontAwesomeIcon icon={faMessage} />
-        </div>
-        <div className="score-item">
-          <div>
-            <div>Location</div>
-            <div>{location}</div>
-          </div>
-          <FontAwesomeIcon icon={faMap} />
-        </div>
-        <div className="score-item">
-          <div>Value</div>
-          <div>{value}</div>
-          <FontAwesomeIcon icon={faTag} />
-        </div>
+        {reviewData.map((review) => (
+          <ReviewType
+            name={review.name}
+            value={review.value}
+            icon={review.icon}
+            key={review.name}
+          />
+        ))}
       </div>
     </div>
   );
