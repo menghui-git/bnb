@@ -6,7 +6,7 @@ module.exports = {
     // Add any other configurations you want to extend
     'eslint:recommended',
     'plugin:react/recommended',
-    "prettier"
+    'prettier',
   ],
   rules: {
     // Add or override any specific rules here
@@ -120,5 +120,11 @@ module.exports = {
     react: {
       version: 'detect',
     },
+  },
+  parserOptions: {
+    ecmaVersion: 'latest',
+  },
+  env: {
+    es6: true,
   },
 };
