@@ -183,12 +183,7 @@ svg {
       width: var(--bar-width);
       height: inherit;
 
-      animation: load-bar 2s ease 0s 1 normal;
-    }
-
-    @keyframes load-bar{
-      from {width: 0%;}
-      to {width: var(--bar-width);}
+      transition: width 2s;
     }
   }
 }
