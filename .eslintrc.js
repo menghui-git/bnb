@@ -3,13 +3,14 @@ module.exports = {
   extends: [
     'react-app',
     'react-app/jest',
-    // Add any other configurations you want to extend
-    'eslint:recommended',
-    'plugin:react/recommended',
     'prettier',
+    // Add any other configurations you want to extend
+    // 'eslint:recommended',
+    // 'plugin:react/recommended',
   ],
   rules: {
     // Add or override any specific rules here
+    'no-debugger': 'warn',
     'no-console': 'warn',
     'react/prop-types': 'off',
     'prefer-const': 'error',
