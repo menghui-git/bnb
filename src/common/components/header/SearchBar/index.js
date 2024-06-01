@@ -6,6 +6,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './index.scss';
 
+const SearchField = ({ label, placeholder, value, onChange }) => {
+  return (
+    <div className="search-field">
+      <label>{label}</label>
+      <input
+        type="text"
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        size={placeholder.length + 1}
+      />
+    </div>
+  );
+};
+
 export const SearchBar = ({ onSearch }) => {
   const [location, setLocation] = useState('');
   const [checkIn, setCheckIn] = useState('');
@@ -20,44 +35,32 @@ export const SearchBar = ({ onSearch }) => {
   return (
     <div className="search-bar-outer">
       <form className="search-bar" onSubmit={onSubmit}>
-        <div>
-          <label>Where</label>
-          <input
-            type="text"
-            placeholder="Search destinations"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Check in</label>
-          <input
-            type="text"
-            placeholder="Add dates"
-            value={checkIn}
-            onChange={(e) => setCheckIn(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Check out</label>
-          <input
-            type="text"
-            placeholder="Add dates"
-            value={checkOut}
-            onChange={(e) => setCheckOut(e.target.value)}
-          />
-        </div>
+        <SearchField
+          label="Where"
+          placeholder="Search destinations"
+          value={location}
+          onChange={setLocation}
+        />
+        <SearchField
+          label="Check in"
+          placeholder="Add dates"
+          value={checkIn}
+          onChange={setCheckIn}
+        />
+        <SearchField
+          label="Check out"
+          placeholder="Add dates"
+          value={checkOut}
+          onChange={setCheckOut}
+        />
         <div className="search">
-          <div>
-            <label>Who</label>
-            <input
-              type="text"
-              placeholder="Add guests"
-              value={numPerson}
-              onChange={(e) => setNumPerson(e.target.value)}
-            />
-          </div>
-          <div id="search-icon">
+          <SearchField
+            label="Who"
+            placeholder="Add guests"
+            value={numPerson}
+            onChange={setNumPerson}
+          />
+          <div className="search-icon">
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </div>
         </div>

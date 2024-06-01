@@ -16,12 +16,23 @@
     grid-template-columns: calc(var(--field-width)*2) var(--field-width) var(--field-width) calc(var(--field-width)*2);
     margin: 0 auto;
 
-    > div {
+    .search-field {
         padding: 14px 2rem;
     }
 
     > div:not(:last-child) {
-        border-right: 1.5px solid #dddddd;
+        position: relative;
+
+        &::after {
+            content: "";
+            background-color: #dddddd;
+            height: 2rem;
+            width: 1.5px;
+
+            position: absolute;
+            top: 1rem;
+            right: 0;
+        }
     }
 
     label {
@@ -36,13 +47,17 @@
 
 .search {
     display: flex;
-}
+    position: relative;
 
-#search-icon {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    background-color: #ff385c;
-    margin: auto;
-    padding: 3px 6px;
+    .search-icon {
+        position: absolute;
+        top: 0.6rem;
+        right: 0.6rem;
+
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        background-color: #ff385c;
+        padding: 1rem;
+    }
 }
