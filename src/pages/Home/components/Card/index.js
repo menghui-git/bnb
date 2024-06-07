@@ -1,16 +1,12 @@
 import React, { forwardRef, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import {
-  faChevronLeft,
-  faChevronRight,
-  faHeart,
-  faStar,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './index.scss';
 import { Skeleton } from '../Skeleton';
+import { LeftButton, RightButton } from 'common/components/buttons';
 
 const ImageSlides = forwardRef(function ImageSlides(props, ref) {
   const { position, room, onPictureLoad } = props;
@@ -60,26 +56,6 @@ const RoomOverview = ({ room, currency }) => {
         ${room.price} {currency} night
       </div>
     </>
-  );
-};
-
-const LeftButton = ({ disabled, onClick }) => {
-  const classes = 'slider-btn slider-btn-left ' + (disabled ? 'hidden' : '');
-
-  return (
-    <div className={classes} onClick={onClick}>
-      <FontAwesomeIcon icon={faChevronLeft} />
-    </div>
-  );
-};
-
-const RightButton = ({ disabled, onClick }) => {
-  const classes = 'slider-btn slider-btn-right ' + (disabled ? 'hidden' : '');
-
-  return (
-    <div className={classes} onClick={onClick}>
-      <FontAwesomeIcon icon={faChevronRight} />
-    </div>
   );
 };
 
@@ -140,7 +116,7 @@ export const Card = ({ room, currency, onPictureLoad, isLoading }) => {
         </Link>
         <div className="card-label">Guest favorite</div>
         <FontAwesomeIcon icon={faHeart} className="like" />
-        <div className="card-overlay-row">
+        <div className="card-overlay">
           <LeftButton
             disabled={isFirstImage(imgIndex)}
             onClick={onLeftButtonClick}

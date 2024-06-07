@@ -4,6 +4,7 @@
     position: sticky;
     top: 0px;
     background-color: #ffffff;
+    z-index: 1;
 }
   
 .nav {
@@ -14,10 +15,10 @@
 }
 
 .nav-search {
-  display: flex;
-  justify-content: center;
-  padding: 30px 0px;
-  border-bottom: 1px solid #DDDDDD;
+    display: flex;
+    justify-content: center;
+    padding: 30px 0px;
+    border-bottom: 1px solid #DDDDDD;
 }
   
 .filter-set {
@@ -25,71 +26,126 @@
     justify-content: space-between;
     width: 100%;
 }
-  
-  .nav-item {
+
+.nav-item {
     display: inline-block;
-  }
+}
   
-  /* preference */
-  
-  .preference {
+.preference {
     float: right;
-  }
+}
   
-  .preference div {
+.preference div {
     display: inline-block;
     margin-inline: 10px;
-  }
-  
-  .icon {
-    margin-inline: 10px;
-  }
-  
-  .filter {
-    border-radius: 10px;
-    border: 1px solid lightgray;
-    padding: 10px;
-  }
-  
-  .filter > div {
-    display: inline;
-    margin: 10px;
-  }
-  
-  .group-container {
+}
+
+.category-scroller {
+    height: 5rem;
+    width: 70%;
+
     overflow-x: scroll;
     overflow-y: hidden;
-    overflow: auto;
-    width: 60%;
+    // hide scroll bar
+    /* Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    position: relative;
+
+    .category-container {
+        
+        height: inherit;
+
+        display: flex;
+        gap: 2rem;
+        flex-direction: row;
+
+        position: absolute;
+        left: 0%;
+
+        .category {
+            margin-block: 0.75rem;
+            display: grid;
+            justify-content: center;
+            text-align: center;
+            row-gap: 0.5rem;
+
+            &:hover {
+                border-bottom: 3px solid #DDDDDD;
+            }
+
+            .category-icon {
+                margin-inline: auto;
+            }
+
+            .category-name {
+                white-space: nowrap;
+                font-size: 12px;
+            }
+        }
+    }
+    
+}
+  
+.filter {
+    border-radius: 10px;
+    border: 2px solid #DDDDDD;
+    width: fit-content;
+    margin-block: auto;
+    font-size: 0.75rem;
+    height: 3rem;
+
     display: flex;
-    gap: 20px;
-    flex-direction: row;
+    gap: 0.5rem;
+    padding-inline: 1rem;
+
+    .content {
+        margin-block: auto;
+    }
+
+    &:hover {
+        border: 2px solid #222222;
+        background-color: #f7f7f7;
   }
-  
-  .group {
-    display: grid;
-    justify-content: center;
-    text-align: center;
-    row-gap: 0.5rem;
-  }
-  
-  .group:hover {
-    border-bottom: 3px solid #DDDDDD;
-  }
-  
-  .group-name {
-    white-space: nowrap;
-    font-size: 12px;
-  }
-  
-  .toggle-base {
+}
+
+@mixin toggle($color, $left, $display-icon: block) {
+    background-color: $color;
     width: 2rem;
     height: 1.5rem;
-    background-color: #DDDDDD;
     border-radius: 0.75rem;
-  }
+
+    position: relative;
   
-  .toggle {
-    height: 1.5rem;
-    border-radius: 0.75rem;
-  }
+    .button {
+        background-color: #ffffff;
+        border: 2px $color solid;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 0.75rem;
+
+        position: absolute;
+        left: $left;
+        transition: left .25s;
+
+        .check-icon {
+            width: fit-content;
+            height: fit-content;
+            margin: auto;
+
+            display: $display-icon;
+        }
+    }
+}
+
+.untoggled {
+    @include toggle(#B0B0B0, 0rem, none);
+}
+
+.toggled {
+    @include toggle(#666666, .5rem);
+}
