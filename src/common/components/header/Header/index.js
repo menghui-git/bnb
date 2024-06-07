@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
-import { faCheck, faHouse, faSliders } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { LeftButton, RightButton } from 'common/components/buttons';
+import { Toggle } from 'common/components/toggle';
 import { Preference } from '../Preference';
 import { SearchBar } from '../SearchBar';
-import { LeftButton, RightButton } from 'common/components/buttons';
 import './index.scss';
 
 // TODO: integrate with Card
@@ -29,18 +30,6 @@ const CategoryScroller = ({ categories }) => {
       </div>
       <RightButton disabled={false} onClick={onRightButtonClick} />
     </>
-  );
-};
-
-const Toggle = ({ toggled, onClick }) => {
-  return (
-    <div className={toggled ? 'toggled' : 'untoggled'}>
-      <div className="button" onClick={onClick}>
-        <div className="check-icon">
-          <FontAwesomeIcon icon={faCheck} />
-        </div>
-      </div>
-    </div>
   );
 };
 

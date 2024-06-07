@@ -1,0 +1,38 @@
+.toggle {
+    --color: #B0B0B0;
+    --left: 0rem;
+    --display-icon: none;
+
+    &[data-toggled=true] {
+        --color: #666666;
+        --left: .5rem;
+        --display-icon: block;
+    }
+    
+    background-color: var(--color);
+    width: 2rem;
+    height: 1.5rem;
+    border-radius: 0.75rem;
+  
+    position: relative;
+  
+    .button {
+        background-color: #ffffff;
+        border: 2px var(--color) solid;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 0.75rem;
+  
+        position: absolute;
+        left: var(--left);
+        transition: left .25s;
+  
+        .check-icon {
+            width: fit-content;
+            height: fit-content;
+            margin: auto;
+  
+            display: var(--display-icon);
+        }
+    }
+  }
