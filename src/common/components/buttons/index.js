@@ -8,9 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './index.scss';
 
-export const IconButton = ({ icon, buttonClass, onClick }) => {
+export const IconButton = ({ icon, onClick, disabled = false }) => {
+  const className = 'icon-btn ' + (disabled ? 'hidden' : '');
   return (
-    <div className={buttonClass} onClick={onClick}>
+    <div className={className} onClick={onClick}>
       <div className="icon">
         <FontAwesomeIcon icon={icon} />
       </div>
@@ -19,25 +20,13 @@ export const IconButton = ({ icon, buttonClass, onClick }) => {
 };
 
 export const LeftButton = ({ disabled = false, onClick }) => {
-  const buttonClass = 'icon-btn ' + (disabled ? 'hidden' : '');
-
   return (
-    <IconButton
-      icon={faChevronLeft}
-      buttonClass={buttonClass}
-      onClick={onClick}
-    />
+    <IconButton icon={faChevronLeft} onClick={onClick} disabled={disabled} />
   );
 };
 
 export const RightButton = ({ disabled = false, onClick }) => {
-  const buttonClass = 'icon-btn ' + (disabled ? 'hidden' : '');
-
   return (
-    <IconButton
-      icon={faChevronRight}
-      buttonClass={buttonClass}
-      onClick={onClick}
-    />
+    <IconButton icon={faChevronRight} onClick={onClick} disabled={disabled} />
   );
 };
