@@ -1,4 +1,4 @@
-const groups = [
+const categories = [
   'Artic',
   'New',
   'Islands',
@@ -58,4 +58,4 @@ const searchRooms = async (
   return searchedBnbs.rooms;
 };
 
-export { groups, searchRooms, getRoom };
+export { categories, searchRooms, getRoom };
