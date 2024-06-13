@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { faAirbnb } from '@fortawesome/free-brands-svg-icons';
 import { faHouse, faSliders } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,14 +10,14 @@ import { SearchBar } from '../SearchBar';
 import './index.scss';
 
 // TODO: integrate with Card
-const CategoryScroller = ({ categories }) => {
-  const onRightButtonClick = (e) => {};
+const CategoryScroller = ({ categories }: { categories: string[] }) => {
+  const onRightButtonClick = () => {};
 
-  const onLeftButtonClick = (e) => {};
+  const onLeftButtonClick = () => {};
 
   return (
     <>
-      <LeftButton disabled={false} onClick={onLeftButtonClick} />
+      <LeftButton disabled={false} onClick={() => onLeftButtonClick()} />
       <div className="category-scroller">
         <div className="category-container">
           {categories.map((category) => (
@@ -33,10 +33,14 @@ const CategoryScroller = ({ categories }) => {
   );
 };
 
-export const Header = ({ categories = [], onSearch = () => null }) => {
+type Props = {
+  categories: string[];
+};
+
+export const Header = ({ categories = [] }: Props) => {
   const [toggled, setToggled] = useState(false);
 
-  const onToggleClick = (e) => {
+  const onToggleClick = () => {
     setToggled(!toggled);
   };
 
@@ -47,7 +51,7 @@ export const Header = ({ categories = [], onSearch = () => null }) => {
         <Preference />
       </div>
       <div className="nav-search">
-        <SearchBar onSearch={onSearch} />
+        <SearchBar />
       </div>
       <div className="filter-set">
         <CategoryScroller categories={categories} />

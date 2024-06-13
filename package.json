@@ -7,8 +7,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --config .prettierrc.json 'src/**/*.{js,d.ts,ts,tsx}' --write",
-    "lint": "eslint --fix 'src/**/*.{js,jsx}' --ignore-path ./.eslintignore"
+    "---format": "prettier --config .prettierrc.json 'src/**/*.{js,ts,tsx}' --write",
+    "lint": "eslint --fix 'src/**/*.{js,ts,tsx}' --ignore-path ./.eslintignore"
   },
   "browserslist": {
     "production": [

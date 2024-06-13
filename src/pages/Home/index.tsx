@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { searchRooms } from '../../data';
 import { Card } from './components/Card';
@@ -6,7 +6,7 @@ import './index.scss';
 
 export const HomePage = () => {
   const pageCount = 5;
-  const [rooms, setBnbs] = useState([]);
+  const [rooms, setBnbs] = useState([] as API.Room[]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadNum, setLoadNum] = useState(0);
   // const [conditions, setConditions] = useState({

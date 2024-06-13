@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState } from 'react';
+import { forwardRef, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
@@ -8,15 +8,22 @@ import './index.scss';
 import { Skeleton } from '../Skeleton';
 import { LeftButton, RightButton } from 'common/components/buttons';
 
-const ImageSlides = forwardRef(function ImageSlides(props, ref) {
-  const { position, room, onPictureLoad } = props;
+type Props = {
+  position: number;
+  images: API.Image[];
+  onPictureLoad: () => void;
+};
+
+const ImageSlides = forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const { position, images, onPictureLoad } = props;
   const positionStyle = { transform: `translateX(${position}px)` };
-  const getOnLoadHandler = (index) => (index === 0 ? onPictureLoad : () => {});
+  const getOnLoadHandler = (index: number) =>
+    index === 0 ? onPictureLoad : () => {};
 
   return (
     <div className="image-container" ref={ref}>
       <div data-slider style={positionStyle}>
-        {room.images.map((image, index) => (
+        {images.map((image, index) => (
           <img
             className="slide"
             src={image.url}
@@ -29,20 +36,32 @@ const ImageSlides = forwardRef(function ImageSlides(props, ref) {
   );
 });
 
-const Indicator = ({ roomImages, imgIndex }) => {
-  const getClass = (index) =>
+const Indicator = ({
+  images,
+  imgIndex,
+}: {
+  images: API.Image[];
+  imgIndex: number;
+}) => {
+  const getClass = (index: number) =>
     `slide-dot ${index !== imgIndex ? 'not-current' : ''}`;
 
   return (
     <div className="indicator-row">
-      {roomImages.map((image, index) => (
+      {images.map((image, index) => (
         <div className={getClass(index)} key={index} />
       ))}
     </div>
   );
 };
 
-const RoomOverview = ({ room, currency }) => {
+const RoomOverview = ({
+  room,
+  currency,
+}: {
+  room: API.Room;
+  currency: string;
+}) => {
   return (
     <>
       <div className="room-overview">
@@ -59,16 +78,26 @@ const RoomOverview = ({ room, currency }) => {
   );
 };
 
-export const Card = ({ room, currency, onPictureLoad, isLoading }) => {
+export const Card = ({
+  room,
+  currency,
+  onPictureLoad,
+  isLoading,
+}: {
+  room: API.Room;
+  currency: string;
+  onPictureLoad: () => void;
+  isLoading: boolean;
+}) => {
   const [imgIndex, setImgIndex] = useState(0);
   const [position, setPosition] = useState(0);
-  const imageListRef = useRef(null);
+  const imageListRef = useRef<HTMLDivElement>(null);
 
   const cardStyle = 'card ' + (isLoading ? 'not-display' : '');
   const roomLink = `/room/${room.id}`;
   const imgCount = room.images.length;
 
-  const slideImage = (newIndex, e) => {
+  const slideImage = (newIndex: number, e: ReactEventClick) => {
     e.stopPropagation();
     setImgIndex(newIndex);
 
@@ -78,21 +107,21 @@ export const Card = ({ room, currency, onPictureLoad, isLoading }) => {
     setPosition(newPosition);
   };
 
-  const isFirstImage = (imgIndex) => {
+  const isFirstImage = (imgIndex: number) => {
     return imgIndex === 0;
   };
 
-  const isLastImage = (imgIndex, imgCount) => {
+  const isLastImage = (imgIndex: number, imgCount: number) => {
     return imgIndex === imgCount - 1;
   };
 
-  const onLeftButtonClick = (e) => {
+  const onLeftButtonClick = (e: ReactEventClick) => {
     if (!isFirstImage(imgIndex)) {
       slideImage(imgIndex - 1, e);
     }
   };
 
-  const onRightButtonClick = (e) => {
+  const onRightButtonClick = (e: ReactEventClick) => {
     if (!isLastImage(imgIndex, imgCount)) {
       slideImage(imgIndex + 1, e);
     }
@@ -107,10 +136,10 @@ export const Card = ({ room, currency, onPictureLoad, isLoading }) => {
             <ImageSlides
               ref={imageListRef}
               position={position}
-              room={room}
+              images={room.images}
               onPictureLoad={onPictureLoad}
             />
-            <Indicator roomImages={room.images} imgIndex={imgIndex} />
+            <Indicator images={room.images} imgIndex={imgIndex} />
           </div>
           <RoomOverview room={room} currency={currency} />
         </Link>
