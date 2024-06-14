@@ -40,10 +40,6 @@ type Props = {
 export const Header = ({ categories = [] }: Props) => {
   const [toggled, setToggled] = useState(false);
 
-  const onToggleClick = () => {
-    setToggled(!toggled);
-  };
-
   return (
     <div className="header">
       <div className="nav">
@@ -64,7 +60,7 @@ export const Header = ({ categories = [] }: Props) => {
         <div className="filter">
           <div className="content">Display total before taxes</div>
           <div className="content">
-            <Toggle toggled={toggled} onClick={onToggleClick} />
+            <Toggle toggled={toggled} onClick={() => setToggled(!toggled)} />
           </div>
         </div>
       </div>
