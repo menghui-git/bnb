@@ -1,12 +1,20 @@
-// @ts-check
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './index.scss';
 
-const SearchField = ({ label, placeholder, value, onChange }) => {
+const SearchField = ({
+  label,
+  placeholder,
+  value,
+  onChange,
+}: {
+  label: string;
+  placeholder: string;
+  value: string | number;
+  onChange: (value: string) => void;
+}) => {
   return (
     <div className="search-field">
       <label>{label}</label>
@@ -21,20 +29,15 @@ const SearchField = ({ label, placeholder, value, onChange }) => {
   );
 };
 
-export const SearchBar = ({ onSearch }) => {
+export const SearchBar = () => {
   const [location, setLocation] = useState('');
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
-  const [numPerson, setNumPerson] = useState('');
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    onSearch(location, checkIn, checkOut, numPerson);
-  };
+  const [numPerson, setNumPerson] = useState(0);
 
   return (
     <div className="search-bar-outer">
-      <form className="search-bar" onSubmit={onSubmit}>
+      <form className="search-bar" onSubmit={(e) => e.preventDefault()}>
         <SearchField
           label="Where"
           placeholder="Search destinations"
@@ -58,7 +61,7 @@ export const SearchBar = ({ onSearch }) => {
             label="Who"
             placeholder="Add guests"
             value={numPerson}
-            onChange={setNumPerson}
+            onChange={(value) => setNumPerson(Number(value))}
           />
           <div className="search-icon">
             <FontAwesomeIcon icon={faMagnifyingGlass} />

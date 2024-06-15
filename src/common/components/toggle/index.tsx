@@ -1,10 +1,14 @@
-import React from 'react';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './index.scss';
 
-export const Toggle = ({ toggled, onClick }) => {
+type Props = {
+  toggled: boolean;
+  onClick: () => void;
+};
+
+export const Toggle = ({ toggled, onClick }: Props) => {
   return (
     <div className="toggle" data-toggled={toggled}>
       <div className="button" onClick={onClick}>

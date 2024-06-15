@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   faArrowUpFromBracket,
@@ -19,6 +19,7 @@ import {
   faTag,
   faTv,
   faWifi,
+  IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -26,7 +27,7 @@ import { Header } from '../../common/components/header/Header';
 import { getRoom } from '../../data';
 import './index.scss';
 
-const getPhotoGrids = (room) => {
+const getPhotoGrids = (room: API.RoomDetail) => {
   return (
     <div className="photo-grid-container">
       <img className="photo-1" src={room.xl_picture_url} />
@@ -38,8 +39,8 @@ const getPhotoGrids = (room) => {
   );
 };
 
-const getAmenities = (amenities = []) => {
-  const amenityIconMap = {
+const getAmenities = (amenities: string[] = []) => {
+  const amenityIconMap: { [key: string]: IconDefinition } = {
     'Air conditioning': faFan,
     'Buzzer/wireless intercom': faWifi,
     'Elevator in building': faElevator,
@@ -72,8 +73,15 @@ const getAmenities = (amenities = []) => {
   );
 };
 
-const ScoreBar = ({ score, percentage }) => {
-  const ratingBar = useRef(null);
+const ScoreBar = ({
+  score,
+  percentage,
+}: {
+  score: string;
+  percentage: string;
+}) => {
+  const ratingBar = useRef<HTMLDivElement>(null);
+  // const ratingBar = useRef<ElementRef<"div">>(null);
 
   if (ratingBar.current) {
     ratingBar.current.style.setProperty('--bar-width', percentage);
@@ -89,7 +97,15 @@ const ScoreBar = ({ score, percentage }) => {
   );
 };
 
-const ReviewType = ({ name, value, icon }) => {
+const ReviewType = ({
+  name,
+  value,
+  icon,
+}: {
+  name: string;
+  value: number;
+  icon: IconDefinition;
+}) => {
   return (
     <div className="score-item">
       <div>
@@ -101,7 +117,7 @@ const ReviewType = ({ name, value, icon }) => {
   );
 };
 
-const getReview = (room) => {
+const getReview = (room: API.RoomDetail) => {
   const point = room.review_scores_rating / 20;
   const reviews = room.number_of_reviews;
   const reviewData = [
@@ -133,7 +149,7 @@ const getReview = (room) => {
       <div className="review-container">
         <div className="score-item">
           <div>Overall rating</div>
-          {room.ratings?.map((rating) => (
+          {room.ratings?.map((rating: API.Rating) => (
             <ScoreBar
               score={rating.label}
               percentage={rating.localized}
@@ -155,8 +171,8 @@ const getReview = (room) => {
 };
 
 export const RoomDetail = () => {
-  const roomId = useParams().roomId;
-  const [room, setRoom] = useState({});
+  const roomId = useParams().roomId!;
+  const [room, setRoom] = useState<API.RoomDetail>({} as API.RoomDetail);
 
   useEffect(() => {
     const queryRoom = async () => {
@@ -191,19 +207,16 @@ export const RoomDetail = () => {
           </div>
         </div>
         {PhotoGrids}
-
         <div className="general-info">
           <section>
             <h2>
               {room.room_type} in {room.host_location}
             </h2>
             <div>
-              {room.accommodates} guests {room.bedrooms} bedrooms {room.beds}{' '}
-              beds {room.bathrooms} bathrooms
+              {room.accommodates} guests {room.bedrooms} bedrooms {room.beds}
             </div>
           </section>
         </div>
-
         <div className="room-info">
           <div className="info-box host-box ">
             <img className="host-pic" src={room.host_picture_url} />
@@ -214,7 +227,6 @@ export const RoomDetail = () => {
               </div>
             </div>
           </div>
-
           <div className="info-box">
             <div>
               <div>{room.summary}</div>
@@ -223,7 +235,6 @@ export const RoomDetail = () => {
               <div>{room.space}</div>
             </div>
           </div>
-
           <div className="info-box">
             <h2>Where you&apos;ll sleep</h2>
             <div className="room-info-box">

@@ -28,16 +28,16 @@ const categories = [
 const API_URL =
   'https://pdlbsd6n42.execute-api.us-west-2.amazonaws.com/dev/room';
 
-const getData = async (url) => {
+const getData = async <TData>(url: string) => {
   const response = await fetch(url);
   const data = await response.json();
 
-  return data;
+  return data as TData;
 };
 
-const getRoom = async (roomId) => {
+const getRoom = async (roomId: string) => {
   const url = `${API_URL}/${roomId}`;
-  const roomData = await getData(url);
+  const roomData = await getData<API.RoomDetail>(url);
 
   return roomData;
 };
@@ -53,7 +53,9 @@ const searchRooms = async (
   pets = '',
 ) => {
   const url = `${API_URL}?pageCount=${pageCount}`;
-  const searchedBnbs = await getData(url);
+  const searchedBnbs = await getData<{
+    rooms: API.Room[];
+  }>(url);
 
   return searchedBnbs.rooms;
 };

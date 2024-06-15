@@ -1,7 +1,3 @@
-// @ts-check
-
-import React from 'react';
-
 import {
   faBars,
   faCircleUser,

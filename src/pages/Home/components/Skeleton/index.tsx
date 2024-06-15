@@ -1,8 +1,10 @@
-import React from 'react';
-
 import './index.scss';
 
-export const Skeleton = ({ isLoading }) => {
+type Props = {
+  isLoading: boolean;
+};
+
+export const Skeleton = ({ isLoading }: Props) => {
   return (
     <div className={'skeleton ' + (isLoading ? '' : 'not-display')}>
       <div className="rect" />
