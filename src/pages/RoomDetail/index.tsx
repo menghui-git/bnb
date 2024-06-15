@@ -30,11 +30,11 @@ import './index.scss';
 const getPhotoGrids = (room: API.RoomDetail) => {
   return (
     <div className="photo-grid-container">
-      <img className="photo-1" src={room.xl_picture_url} />
-      <img className="photo-2" src={room.xl_picture_url} />
-      <img className="photo-3" src={room.xl_picture_url} />
-      <img className="photo-4" src={room.xl_picture_url} />
-      <img className="photo-5" src={room.xl_picture_url} />
+      <img className="photo-1" src={room.xl_picture_url} alt="" />
+      <img className="photo-2" src={room.xl_picture_url} alt="" />
+      <img className="photo-3" src={room.xl_picture_url} alt="" />
+      <img className="photo-4" src={room.xl_picture_url} alt="" />
+      <img className="photo-5" src={room.xl_picture_url} alt="" />
     </div>
   );
 };
@@ -140,6 +140,7 @@ const getReview = (room: API.RoomDetail) => {
     { name: 'Location', value: room.review_scores_location / 2, icon: faMap },
     { name: 'Value', value: room.review_scores_value / 2, icon: faTag },
   ];
+
   return (
     <div className="info-box">
       <h2 className="review-overall">
@@ -180,7 +181,7 @@ export const RoomDetail = () => {
       setRoom(roomData);
     };
     queryRoom();
-  }, []);
+  }, [roomId]);
 
   const PhotoGrids = getPhotoGrids(room);
   const Amenities = getAmenities(room.amenities);
@@ -219,7 +220,7 @@ export const RoomDetail = () => {
         </div>
         <div className="room-info">
           <div className="info-box host-box ">
-            <img className="host-pic" src={room.host_picture_url} />
+            <img className="host-pic" src={room.host_picture_url} alt="" />
             <div>
               <div>Hosted by {room.host_name}</div>
               <div className="host-info">

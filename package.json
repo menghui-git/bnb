@@ -7,8 +7,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "---format": "prettier --config .prettierrc.json 'src/**/*.{js,ts,tsx}' --write",
-    "lint": "eslint --fix 'src/**/*.{js,ts,tsx}' --ignore-path ./.eslintignore"
+    "prettier": "prettier --config .prettierrc.json 'src/**/*.{js,ts,tsx}' --write",
+    "lint": "eslint --fix 'src/**/*.{js,ts,tsx}' --ignore-path ./.eslintignore",
+    "format": "npm run prettier && npm run lint",
+    "check-rule-collision": "eslint-config-prettier 'src/**/*.{js,ts,tsx}'"
   },
   "browserslist": {
     "production": [
@@ -42,8 +44,6 @@
   "devDependencies": {
     "@types/react": "^18.3.3",
     "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.2.5",
-    "ts-migrate": "^0.1.35",
-    "typescript": "^5.4.5"
+    "prettier": "^3.2.5"
   }
 }
