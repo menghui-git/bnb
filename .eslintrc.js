@@ -1,13 +1,6 @@
 /** @type { import("eslint").Linter.Config } */
 module.exports = {
-  extends: [
-    'react-app',
-    'react-app/jest',
-    'prettier',
-    // Add any other configurations you want to extend
-    // 'eslint:recommended',
-    // 'plugin:react/recommended',
-  ],
+  extends: ['react-app', 'react-app/jest', 'prettier'],
   rules: {
     // Add or override any specific rules here
     'no-debugger': 'warn',
@@ -17,19 +10,6 @@ module.exports = {
     'newline-before-return': 'warn',
     'react/no-array-index-key': 'warn',
     'react/jsx-key': 'error',
-    'max-len': [
-      'warn',
-      {
-        code: 80,
-        ignoreUrls: true,
-        ignoreComments: true,
-        ignoreStrings: true,
-        ignoreRegExpLiterals: true,
-        ignoreTemplateLiterals: true,
-        ignoreTrailingComments: true,
-        ignorePattern: '^import .*|class .* extends .*',
-      },
-    ],
     'sort-imports': [
       'warn',
       {

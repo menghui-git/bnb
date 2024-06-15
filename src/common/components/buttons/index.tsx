@@ -21,6 +21,7 @@ export const IconButton = ({
   disabled = false,
 }: IconButtonProps) => {
   const className = 'icon-btn ' + (disabled ? 'hidden' : '');
+
   return (
     <div className={className} onClick={onClick}>
       <div className="icon">

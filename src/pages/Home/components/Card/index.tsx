@@ -1,12 +1,11 @@
 import { forwardRef, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-
 import { faHeart, faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import './index.scss';
-import { Skeleton } from '../Skeleton';
 import { LeftButton, RightButton } from 'common/components/buttons';
+import { Skeleton } from '../Skeleton';
+import './index.scss';
 
 type Props = {
   position: number;
@@ -25,10 +24,11 @@ const ImageSlides = forwardRef<HTMLDivElement, Props>((props, ref) => {
       <div data-slider style={positionStyle}>
         {images.map((image, index) => (
           <img
+            key={image.url}
             className="slide"
             src={image.url}
+            alt=""
             onLoad={getOnLoadHandler(index)}
-            key={index}
           />
         ))}
       </div>
@@ -49,7 +49,7 @@ const Indicator = ({
   return (
     <div className="indicator-row">
       {images.map((image, index) => (
-        <div className={getClass(index)} key={index} />
+        <div key={image.url} className={getClass(index)} />
       ))}
     </div>
   );
