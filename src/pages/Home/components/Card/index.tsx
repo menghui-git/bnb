@@ -7,34 +7,36 @@ import { LeftButton, RightButton } from 'common/components/buttons';
 import { Skeleton } from '../Skeleton';
 import './index.scss';
 
-type Props = {
+type ImageSlideProps = {
   position: number;
   images: API.Image[];
   onPictureLoad: () => void;
 };
 
-const ImageSlides = forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const { position, images, onPictureLoad } = props;
-  const positionStyle = { transform: `translateX(${position}px)` };
-  const getOnLoadHandler = (index: number) =>
-    index === 0 ? onPictureLoad : () => {};
+const ImageSlides = forwardRef<HTMLDivElement, ImageSlideProps>(
+  (props, ref) => {
+    const { position, images, onPictureLoad } = props;
+    const positionStyle = { transform: `translateX(${position}px)` };
+    const getOnLoadHandler = (index: number) =>
+      index === 0 ? onPictureLoad : () => {};
 
-  return (
-    <div className="image-container" ref={ref}>
-      <div data-slider style={positionStyle}>
-        {images.map((image, index) => (
-          <img
-            key={image.url}
-            className="slide"
-            src={image.url}
-            alt=""
-            onLoad={getOnLoadHandler(index)}
-          />
-        ))}
+    return (
+      <div className="image-container" ref={ref}>
+        <div data-slider style={positionStyle}>
+          {images.map((image, index) => (
+            <img
+              key={image.url}
+              className="slide"
+              src={image.url}
+              alt=""
+              onLoad={getOnLoadHandler(index)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 const Indicator = ({
   images,
@@ -78,17 +80,16 @@ const RoomOverview = ({
   );
 };
 
-export const Card = ({
-  room,
-  currency,
-  onPictureLoad,
-  isLoading,
-}: {
+type Props = {
   room: API.Room;
   currency: string;
   onPictureLoad: () => void;
   isLoading: boolean;
-}) => {
+};
+
+export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const { room, currency, onPictureLoad, isLoading } = props;
+
   const [imgIndex, setImgIndex] = useState(0);
   const [position, setPosition] = useState(0);
   const imageListRef = useRef<HTMLDivElement>(null);
@@ -127,8 +128,9 @@ export const Card = ({
     }
   };
 
+  // TODO: make each card manages its own isLoading state by itself
   return (
-    <div className="card-container">
+    <div className="card-container" ref={ref}>
       <Skeleton isLoading={isLoading} />
       <div className={cardStyle}>
         <Link to={roomLink} key={room.id}>
@@ -158,4 +160,4 @@ export const Card = ({
       </div>
     </div>
   );
-};
+});

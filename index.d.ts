@@ -1,4 +1,12 @@
 declare namespace API {
+  type RoomListResponse = {
+    totalCount: number;
+    pageCount: number;
+    totalPages: number;
+    rooms: Room[];
+    validationErrors: any[];
+  };
+
   type BasicRoom = {
     id: string;
     listing_url: string;
