@@ -44,6 +44,7 @@ const getRoom = async (roomId: string) => {
 
 const searchRooms = async (
   pageCount = 5,
+  pageIndex = 0,
   location = '',
   checkIn = '',
   checkOut = '',
@@ -52,12 +53,10 @@ const searchRooms = async (
   infants = '',
   pets = '',
 ) => {
-  const url = `${API_URL}?pageCount=${pageCount}`;
-  const searchedBnbs = await getData<{
-    rooms: API.Room[];
-  }>(url);
+  const url = `${API_URL}?pageIndex=${pageIndex}&pageCount=${pageCount}`;
+  const searchedBnbs = await getData<API.RoomListResponse>(url);
 
-  return searchedBnbs.rooms;
+  return searchedBnbs;
 };
 
 export { categories, searchRooms, getRoom };
