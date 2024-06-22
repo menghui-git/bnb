@@ -117,12 +117,14 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
   };
 
   const onLeftButtonClick = (e: ReactEventClick) => {
+    e.preventDefault();
     if (!isFirstImage(imgIndex)) {
       slideImage(imgIndex - 1, e);
     }
   };
 
   const onRightButtonClick = (e: ReactEventClick) => {
+    e.preventDefault();
     if (!isLastImage(imgIndex, imgCount)) {
       slideImage(imgIndex + 1, e);
     }
@@ -142,21 +144,21 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
               onPictureLoad={onPictureLoad}
             />
             <Indicator images={room.images} imgIndex={imgIndex} />
+            <div className="card-overlay">
+              <LeftButton
+                disabled={isFirstImage(imgIndex)}
+                onClick={onLeftButtonClick}
+              />
+              <RightButton
+                disabled={isLastImage(imgIndex, imgCount)}
+                onClick={onRightButtonClick}
+              />
+            </div>
           </div>
           <RoomOverview room={room} currency={currency} />
         </Link>
         <div className="card-label">Guest favorite</div>
         <FontAwesomeIcon icon={faHeart} className="like" />
-        <div className="card-overlay">
-          <LeftButton
-            disabled={isFirstImage(imgIndex)}
-            onClick={onLeftButtonClick}
-          />
-          <RightButton
-            disabled={isLastImage(imgIndex, imgCount)}
-            onClick={onRightButtonClick}
-          />
-        </div>
       </div>
     </div>
   );
