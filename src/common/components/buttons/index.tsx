@@ -9,7 +9,9 @@ import './index.scss';
 
 type IconButtonProps = {
   icon: IconProp;
-  disabled: boolean;
+  buttonType?: 'flat' | 'default';
+  className?: string;
+  disabled?: boolean;
   onClick: (e: ReactEventClick) => void;
 };
 
@@ -17,34 +19,34 @@ type ChevronButtonProps = Omit<IconButtonProps, 'icon'>;
 
 export const IconButton = ({
   icon,
-  onClick,
+  buttonType = 'default',
+  className = '',
   disabled = false,
+  onClick,
 }: IconButtonProps) => {
-  const className = 'icon-btn ' + (disabled ? 'hidden' : '');
-
   return (
-    <div className={className} onClick={onClick}>
-      <div className="icon">
-        <FontAwesomeIcon icon={icon} />
-      </div>
-    </div>
+    <button
+      className={`icon-button ${className}`}
+      data-type={buttonType}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      <FontAwesomeIcon icon={icon} />
+    </button>
   );
 };
 
-export const LeftButton = ({
-  disabled = false,
-  onClick,
-}: ChevronButtonProps) => {
+export const LeftButton = ({ className = '', onClick }: ChevronButtonProps) => {
   return (
-    <IconButton icon={faChevronLeft} onClick={onClick} disabled={disabled} />
+    <IconButton icon={faChevronLeft} className={className} onClick={onClick} />
   );
 };
 
 export const RightButton = ({
-  disabled = false,
+  className = '',
   onClick,
 }: ChevronButtonProps) => {
   return (
-    <IconButton icon={faChevronRight} onClick={onClick} disabled={disabled} />
+    <IconButton icon={faChevronRight} className={className} onClick={onClick} />
   );
 };

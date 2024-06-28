@@ -146,11 +146,11 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
             <Indicator images={room.images} imgIndex={imgIndex} />
             <div className="card-overlay">
               <LeftButton
-                disabled={isFirstImage(imgIndex)}
+                className={isFirstImage(imgIndex) ? 'hidden' : ''}
                 onClick={onLeftButtonClick}
               />
               <RightButton
-                disabled={isLastImage(imgIndex, imgCount)}
+                className={isLastImage(imgIndex, imgCount) ? 'hidden' : ''}
                 onClick={onRightButtonClick}
               />
             </div>

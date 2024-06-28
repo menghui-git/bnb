@@ -17,7 +17,7 @@ const CategoryScroller = ({ categories }: { categories: string[] }) => {
 
   return (
     <>
-      <LeftButton disabled={false} onClick={() => onLeftButtonClick()} />
+      <LeftButton onClick={() => onLeftButtonClick()} />
       <div className="category-scroller">
         <div className="category-container">
           {categories.map((category) => (
@@ -28,7 +28,7 @@ const CategoryScroller = ({ categories }: { categories: string[] }) => {
           ))}
         </div>
       </div>
-      <RightButton disabled={false} onClick={onRightButtonClick} />
+      <RightButton onClick={onRightButtonClick} />
     </>
   );
 };
