@@ -126,3 +126,5 @@ declare namespace API {
 }
 
 type ReactEventClick = React.MouseEvent<HTMLElement, MouseEvent>;
+
+type GuestData = { adult: number; child: number; infant: number; pet: number };

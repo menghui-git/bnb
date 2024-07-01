@@ -1,39 +1,46 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { GuestSearchField, SearchField } from '../SearchField';
+
 import './index.scss';
 
-const SearchField = ({
-  label,
-  placeholder,
-  value,
-  onChange,
-}: {
-  label: string;
-  placeholder: string;
-  value: string | number;
-  onChange: (value: string) => void;
-}) => {
-  return (
-    <div className="search-field">
-      <label>{label}</label>
-      <input
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        size={placeholder.length + 1}
-      />
-    </div>
-  );
-};
-
 export const SearchBar = () => {
+  // search data
   const [location, setLocation] = useState('');
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
-  const [numPerson, setNumPerson] = useState(0);
+  const [guestData, setGuestData] = useState({
+    adult: 0,
+    child: 0,
+    infant: 0,
+    pet: 0,
+  });
+
+  const [showGuestPopup, setShowGuestPopup] = useState(false);
+  const guestFieldRef = useRef(null);
+
+  useEffect(() => {
+    const handleWindowClick = (e: MouseEvent) => {
+      if (
+        guestFieldRef.current &&
+        !(guestFieldRef.current as HTMLElement).contains(
+          e.target as HTMLElement,
+        )
+      ) {
+        setShowGuestPopup(false);
+      }
+    };
+
+    window.addEventListener('click', handleWindowClick);
+
+    return () => window.removeEventListener('click', handleWindowClick);
+  }, []);
+
+  const onGuestFieldClick = () => {
+    setShowGuestPopup(!showGuestPopup);
+  };
 
   return (
     <div className="search-bar-outer">
@@ -57,11 +64,14 @@ export const SearchBar = () => {
           onChange={setCheckOut}
         />
         <div className="search">
-          <SearchField
+          <GuestSearchField
+            ref={guestFieldRef}
+            onClick={onGuestFieldClick}
             label="Who"
             placeholder="Add guests"
-            value={numPerson}
-            onChange={(value) => setNumPerson(Number(value))}
+            value={guestData}
+            showDropdown={showGuestPopup}
+            onChange={(value) => setGuestData(value)}
           />
           <div className="search-icon">
             <FontAwesomeIcon icon={faMagnifyingGlass} />

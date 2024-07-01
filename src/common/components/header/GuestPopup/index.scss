@@ -1,0 +1,46 @@
+.guest-popup {
+  position: absolute;
+  width: 395px;
+  height: 406px;
+  margin-top: 0.75rem;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  right: 0;
+
+  border-radius: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 12px 0px;
+
+  z-index: 100;
+
+  .option {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem 0.25rem;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #ebebeb;
+    }
+
+    .name {
+      font-size: 1rem;
+      color: #222222;
+    }
+    .desc {
+      font-size: 14px;
+      color: #6a6a6a;
+    }
+
+    .option-panel {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-block: auto;
+      width: 104px;
+
+      .count {
+        font-size: 1rem;
+        color: #222222;
+      }
+    }
+  }
+}

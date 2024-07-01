@@ -1,92 +1,95 @@
 .card-container {
-    --card-width: calc(85vw / 4);
-    --card-height: calc(var(--card-width) * 0.8);
-    --card-radius: 20px;
+  --card-width: calc(85vw / 4);
+  --card-height: calc(var(--card-width) * 0.8);
+  --card-radius: 20px;
 }
 
 .card {
-    position: relative;
+  position: relative;
 
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .icon-btn {
-        display: none;
-    }
-    &:hover .icon-btn {
-        display: flex;
-    }
-}
-
-.slide-container {
-    position: relative;
-}
-
-.image-container {
-    position: relative;
-    width: var(--card-width);
-    height: var(--card-height);
-    overflow: hidden;
-    position: relative;
-    border-radius: var(--card-radius);
-}
-
-div[data-slider] {
-    position: absolute;
-    display: flex;
-    left: 0;
-    transition: transform .5s ease;
-}
-
-.slide {
+  a {
     text-decoration: none;
     color: inherit;
-    width: var(--card-width);
-    height: var(--card-height);
-    object-fit: cover;
   }
- 
-.indicator-row {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 0.25rem;
-    bottom: 0.75rem;
-}
 
-.slide-dot {
-    background-color: #ffffff;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 0.25rem;
-}
+  .slide-container {
+    position: relative;
 
-.not-current {
-    opacity: 0.5;
-}
+    .image-container {
+      position: relative;
+      width: var(--card-width);
+      height: var(--card-height);
+      overflow: hidden;
+      position: relative;
+      border-radius: var(--card-radius);
 
-.card-overlay {
-    position: absolute;
-    width: 100%;
-    height: var(--card-height);
-    top: 0;
+      div[data-slider] {
+        position: absolute;
+        display: flex;
+        left: 0;
+        transition: transform 0.5s ease;
 
-    padding-inline: .75rem;
-    display: flex;
-    justify-content: space-between;
-}
+        .slide {
+          text-decoration: none;
+          color: inherit;
+          width: var(--card-width);
+          height: var(--card-height);
+          object-fit: cover;
+        }
+      }
+    }
 
-  
-.like {
+    .indicator-row {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      bottom: 0.75rem;
+
+      .slide-dot {
+        background-color: #ffffff;
+        width: 0.5rem;
+        aspect-ratio: 1/1;
+        border-radius: 0.25rem;
+      }
+
+      .not-current {
+        opacity: 0.5;
+      }
+    }
+
+    .card-overlay {
+      position: absolute;
+      width: 100%;
+      height: var(--card-height);
+      top: 0;
+      z-index: -1;
+      padding-inline: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+
+      .icon-btn {
+        display: none;
+      }
+
+      &:hover .icon-btn {
+        display: block;
+      }
+    }
+
+    &:hover .card-overlay {
+      z-index: 1;
+    }
+  }
+
+  .like {
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;
-}
+  }
 
-.card-label {
+  .card-label {
     position: absolute;
     top: 0.75rem;
     left: 0.75rem;
@@ -95,5 +98,5 @@ div[data-slider] {
     border-radius: 16px;
     padding: 5px 10px;
     width: fit-content;
+  }
 }
-
