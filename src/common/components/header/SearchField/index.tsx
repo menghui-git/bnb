@@ -1,8 +1,4 @@
-import { forwardRef } from 'react';
-
-import { GuestPopup } from 'common/components/header/GuestPopup';
-
-export const SearchField = ({
+export const LocationSearchField = ({
   label,
   placeholder,
   value,
@@ -27,56 +23,29 @@ export const SearchField = ({
   );
 };
 
-type GuestSearchFieldProps = {
+type SearchFieldProps = {
   label: string;
   placeholder: string;
-  value: GuestData;
-  showDropdown: boolean;
-  onClick: () => void;
-  onChange: (value: GuestData) => void;
+  value?: string;
+  onClick: (e: ReactEventClick) => void;
 };
 
-// TODO: integrate search field components
-// TODO: fix position
-export const GuestSearchField = forwardRef<
-  HTMLDivElement,
-  GuestSearchFieldProps
->((props, ref) => {
-  const { label, placeholder, value, showDropdown, onClick, onChange } = props;
-
-  const getDisplayValue = ({ adult, child, infant, pet }: GuestData) => {
-    let displayGuestData = '';
-
-    if (adult + child > 0) {
-      displayGuestData += `${adult + child} guests`;
-    }
-
-    if (infant > 0) {
-      displayGuestData += `, ${infant} infants`;
-    }
-
-    if (pet > 0) {
-      displayGuestData += `, ${pet} pets`;
-    }
-
-    return displayGuestData;
-  };
-
+export const SearchField = ({
+  label,
+  placeholder,
+  value,
+  onClick,
+}: SearchFieldProps) => {
   return (
-    <div className="search-field" onClick={onClick} ref={ref}>
+    <div className="search-field" onClick={onClick}>
       <label>{label}</label>
       <input
         type="text"
         placeholder={placeholder}
-        value={getDisplayValue(value)}
+        value={value}
         className="input"
         readOnly
       />
-      <GuestPopup
-        className={showDropdown ? '' : 'hidden'}
-        value={value}
-        onValueChange={onChange}
-      />
     </div>
   );
-});
+};

@@ -1,4 +1,3 @@
-import React from 'react';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { IconButton } from '../../buttons';
