@@ -11,6 +11,9 @@ type Props = {
   setEndDate: (value: Date) => void;
 };
 
+const monthCount = 12;
+const tabList = ['Dates', 'Months', 'Flexible'];
+
 export const DateRangePopup = ({
   className,
   startDate,
@@ -22,8 +25,6 @@ export const DateRangePopup = ({
   const month = today.getMonth();
   const year = today.getFullYear();
   const [monthIndex, setMonthIndex] = useState(0);
-  const monthCount = 12;
-  const tabList = ['Dates', 'Months', 'Flexible'];
   const [selectedTab, setSelectedTab] = useState(tabList[0]);
   const [hoveredDate, setHoveredDate] = useState<null | Date>(null);
 
