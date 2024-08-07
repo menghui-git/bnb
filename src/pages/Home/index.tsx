@@ -12,11 +12,6 @@ export const HomePage = () => {
   const [isImageLoading, setImageLoading] = useState(true);
   const [loadNum, setLoadNum] = useState(0);
   const lastCardRef = useRef(null);
-  // const [conditions, setConditions] = useState({
-  //   location: '',
-  //   checkIn: '',
-  //   checkOut: '',
-  // });
   const currency = 'TWD';
 
   const loadNewPage = () => {

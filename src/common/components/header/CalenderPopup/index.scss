@@ -1,0 +1,59 @@
+.calender-popup {
+  position: absolute;
+  width: 848px;
+  height: 496px;
+  margin-top: 0.75rem;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  left: 0px;
+
+  border-radius: 2rem;
+  box-shadow: rgba(156, 90, 90, 0.15) 0px 3px 12px 0px;
+
+  overflow: hidden;
+
+  z-index: 100;
+
+  .tab-list {
+    margin-inline: auto;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 22px;
+    background-color: #ebebeb;
+
+    display: flex;
+    gap: 0.25rem;
+    padding-inline: 0.25rem;
+
+    .tab {
+      margin-block: 0.25rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 100px;
+      border: 1px solid #ebebeb;
+      font-size: 0.875rem;
+      color: #222222;
+      background-color: #ebebeb;
+
+      &[data-selected='true'] {
+        border: 1px solid #dddddd;
+        background-color: #ffffff;
+      }
+
+      &:hover:not([data-selected='true']) {
+        border: 1px solid #dddddd;
+        background-color: #dddddd;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .calendar-row {
+    --position: 0px;
+    --transform-position: translateX(var(--position));
+    --transition-position: transform 0.5s;
+
+    display: flex;
+    position: relative;
+    left: -404px;
+  }
+}

@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { GuestSearchField, SearchField } from '../SearchField';
-
+import { DateRangePopup } from '../CalenderPopup';
+import { GuestPopup } from '../GuestPopup';
+import { LocationSearchField, SearchField } from '../SearchField';
 import './index.scss';
 
 export const SearchBar = () => {
   // search data
   const [location, setLocation] = useState('');
-  const [checkIn, setCheckIn] = useState('');
-  const [checkOut, setCheckOut] = useState('');
+  const [checkIn, setCheckIn] = useState<null | Date>(null);
+  const [checkOut, setCheckOut] = useState<null | Date>(null);
   const [guestData, setGuestData] = useState({
     adult: 0,
     child: 0,
@@ -18,19 +19,13 @@ export const SearchBar = () => {
     pet: 0,
   });
 
+  const [showDatePopup, setShowDatePopup] = useState(false);
   const [showGuestPopup, setShowGuestPopup] = useState(false);
-  const guestFieldRef = useRef(null);
 
   useEffect(() => {
     const handleWindowClick = (e: MouseEvent) => {
-      if (
-        guestFieldRef.current &&
-        !(guestFieldRef.current as HTMLElement).contains(
-          e.target as HTMLElement,
-        )
-      ) {
-        setShowGuestPopup(false);
-      }
+      setShowDatePopup(false);
+      setShowGuestPopup(false);
     };
 
     window.addEventListener('click', handleWindowClick);
@@ -38,14 +33,42 @@ export const SearchBar = () => {
     return () => window.removeEventListener('click', handleWindowClick);
   }, []);
 
-  const onGuestFieldClick = () => {
+  const onDateFieldClick = (e: ReactEventClick) => {
+    e.stopPropagation();
+    setShowDatePopup(!showDatePopup);
+    setShowGuestPopup(false);
+  };
+
+  const onGuestFieldClick = (e: ReactEventClick) => {
+    e.stopPropagation();
+    setShowDatePopup(false);
     setShowGuestPopup(!showGuestPopup);
+  };
+
+  const getDateString = (date?: Date) => {
+    if (date)
+      return date.toLocaleString('default', { month: 'short', day: 'numeric' });
+  };
+
+  const getGuestString = ({ adult, child, infant, pet }: GuestData) => {
+    let displayGuestData = '';
+    if (adult + child > 0) {
+      displayGuestData += `${adult + child} guests`;
+    }
+    if (infant > 0) {
+      displayGuestData += `, ${infant} infants`;
+    }
+    if (pet > 0) {
+      displayGuestData += `, ${pet} pets`;
+    }
+
+    return displayGuestData;
   };
 
   return (
     <div className="search-bar-outer">
       <form className="search-bar" onSubmit={(e) => e.preventDefault()}>
-        <SearchField
+        <LocationSearchField
           label="Where"
           placeholder="Search destinations"
           value={location}
@@ -54,30 +77,41 @@ export const SearchBar = () => {
         <SearchField
           label="Check in"
           placeholder="Add dates"
-          value={checkIn}
-          onChange={setCheckIn}
+          value={getDateString(checkIn!)}
+          onClick={onDateFieldClick}
         />
         <SearchField
           label="Check out"
           placeholder="Add dates"
-          value={checkOut}
-          onChange={setCheckOut}
+          value={getDateString(checkOut!)}
+          onClick={onDateFieldClick}
         />
         <div className="search">
-          <GuestSearchField
-            ref={guestFieldRef}
+          <SearchField
             onClick={onGuestFieldClick}
             label="Who"
             placeholder="Add guests"
-            value={guestData}
-            showDropdown={showGuestPopup}
-            onChange={(value) => setGuestData(value)}
+            value={getGuestString(guestData)}
           />
           <div className="search-icon">
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </div>
         </div>
       </form>
+      <div className="popup-container">
+        <DateRangePopup
+          className={showDatePopup ? '' : 'hidden'}
+          startDate={checkIn!}
+          setStartDate={setCheckIn}
+          endDate={checkOut!}
+          setEndDate={setCheckOut}
+        />
+        <GuestPopup
+          className={showGuestPopup ? '' : 'hidden'}
+          value={guestData}
+          onValueChange={(value) => setGuestData(value)}
+        />
+      </div>
     </div>
   );
 };
