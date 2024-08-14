@@ -1,0 +1,16 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(calc(4), 1fr);
+  column-gap: 1.5rem;
+  row-gap: 2.5rem;
+
+  padding-inline-start: 5rem;
+  padding-inline-end: 5rem;
+
+  width: 100vw;
+}
+
+.result {
+  flex: 0 1 auto;
+  overflow: auto;
+}

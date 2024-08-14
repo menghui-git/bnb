@@ -5,9 +5,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import styles from './index.module.scss';
+
 export const Preference = () => {
   return (
-    <div className="preference">
+    <div className={styles.preference}>
       <div>Airbnb your home</div>
       <FontAwesomeIcon icon={faGlobe} />
       <div>

@@ -100,3 +100,12 @@
     width: fit-content;
   }
 }
+
+.room-overview {
+  display: flex;
+  justify-content: space-between;
+
+  .rating {
+    display: flex;
+  }
+}

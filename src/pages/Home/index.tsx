@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { searchRooms } from '../../data';
 import { Card } from './components/Card';
-import './index.scss';
+import styles from './index.module.scss';
 
 export const HomePage = () => {
   const pageCount = 12; // TODO: get the count depending on the screen size
@@ -65,7 +65,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className="grid-container result">
+      <div className={`${styles['grid-container']} ${styles['result']}`}>
         {rooms.map((room, index) => (
           <Card
             key={room.id + index}

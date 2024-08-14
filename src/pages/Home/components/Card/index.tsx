@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { LeftButton, RightButton } from 'common/components/buttons';
 import { Skeleton } from '../Skeleton';
-import './index.scss';
+import styles from './index.module.scss';
 
 type ImageSlideProps = {
   position: number;
@@ -21,12 +21,12 @@ const ImageSlides = forwardRef<HTMLDivElement, ImageSlideProps>(
       index === 0 ? onPictureLoad : () => {};
 
     return (
-      <div className="image-container" ref={ref}>
+      <div className={styles['image-container']} ref={ref}>
         <div data-slider style={positionStyle}>
           {images.map((image, index) => (
             <img
               key={image.url}
-              className="slide"
+              className={styles.slide}
               src={image.url}
               alt=""
               onLoad={getOnLoadHandler(index)}
@@ -46,10 +46,10 @@ const Indicator = ({
   imgIndex: number;
 }) => {
   const getClass = (index: number) =>
-    `slide-dot ${index !== imgIndex ? 'not-current' : ''}`;
+    `${styles['slide-dot']} ${index !== imgIndex ? styles['not-current'] : ''}`;
 
   return (
-    <div className="indicator-row">
+    <div className={styles['indicator-row']}>
       {images.map((image, index) => (
         <div key={image.url} className={getClass(index)} />
       ))}
@@ -66,9 +66,9 @@ const RoomOverview = ({
 }) => {
   return (
     <>
-      <div className="room-overview">
+      <div className={styles['room-overview']}>
         <div>{room.smart_location}</div>
-        <div className="rating">
+        <div className={styles.rating}>
           <FontAwesomeIcon icon={faStar} />
           <div>{room.review_scores_rating / 20}</div>
         </div>
@@ -94,7 +94,8 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const [position, setPosition] = useState(0);
   const imageListRef = useRef<HTMLDivElement>(null);
 
-  const cardStyle = 'card ' + (isLoading ? 'not-display' : '');
+  const cardStyle =
+    styles.card + ' ' + (isLoading ? styles['not-display'] : '');
   const roomLink = `/room/${room.id}`;
   const imgCount = room.images.length;
 
@@ -132,11 +133,11 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
 
   // TODO: make each card manages its own isLoading state by itself
   return (
-    <div className="card-container" ref={ref}>
+    <div className={styles['card-container']} ref={ref}>
       <Skeleton isLoading={isLoading} />
       <div className={cardStyle}>
         <Link to={roomLink} key={room.id}>
-          <div className="slide-container">
+          <div className={styles['slide-container']}>
             <ImageSlides
               ref={imageListRef}
               position={position}
@@ -144,7 +145,7 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
               onPictureLoad={onPictureLoad}
             />
             <Indicator images={room.images} imgIndex={imgIndex} />
-            <div className="card-overlay">
+            <div className={styles['card-overlay']}>
               <LeftButton
                 className={isFirstImage(imgIndex) ? 'hidden' : ''}
                 onClick={onLeftButtonClick}
@@ -157,8 +158,8 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
           </div>
           <RoomOverview room={room} currency={currency} />
         </Link>
-        <div className="card-label">Guest favorite</div>
-        <FontAwesomeIcon icon={faHeart} className="like" />
+        <div className={styles['card-label']}>Guest favorite</div>
+        <FontAwesomeIcon icon={faHeart} className={styles.like} />
       </div>
     </div>
   );

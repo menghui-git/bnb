@@ -1,5 +1,5 @@
 import { LeftButton, RightButton } from '../buttons';
-import './index.scss';
+import styles from './index.module.scss';
 
 const daysInMonth = (month: number, year: number) => {
   // Month in JavaScript is 0-indexed (January is 0, February is 1, etc),
@@ -36,8 +36,8 @@ const getDateList = (month: number, year: number) => {
 
 const WeekDay = ({ day }: { day: string }) => {
   return (
-    <div className="weekday-grid">
-      <div className="weekday">{day}</div>
+    <div className={styles['weekday-grid']}>
+      <div className={styles.weekday}>{day}</div>
     </div>
   );
 };
@@ -59,9 +59,13 @@ const CalendarDate = ({
   onMouseOver: () => void;
 }) => {
   return (
-    <div className="date-bg" data-in-range={inRange} data-state={state}>
+    <div
+      className={styles['date-bg']}
+      data-in-range={inRange}
+      data-state={state}
+    >
       <button
-        className="date"
+        className={styles.date}
         disabled={disabled}
         data-selected={state === 'left' || state === 'right'}
         onClick={onClick}
@@ -150,20 +154,20 @@ export const Calendar = ({
   };
 
   return (
-    <div className="calendar">
-      <div className="title">
+    <div className={styles.calendar}>
+      <div className={styles.title}>
         <LeftButton
           className={!showLeftButton ? 'hidden' : ''}
           onClick={onLeftButtonClick!}
         />
-        <div className="month">{`${monthName} ${year}`}</div>
+        <div className={styles.month}>{`${monthName} ${year}`}</div>
         <RightButton
           className={!showRightButton ? 'hidden' : ''}
           onClick={onRightButtonClick!}
         />
       </div>
-      <div className="date-container">
-        {weekdays.map((day, index) => (
+      <div className={styles['date-container']}>
+        {weekdays.map((day) => (
           <WeekDay key={day} day={day} />
         ))}
         {dates.map((dateNumber, index) => {

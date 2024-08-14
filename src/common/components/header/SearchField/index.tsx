@@ -1,3 +1,5 @@
+import styles from './index.module.scss';
+
 export const LocationSearchField = ({
   label,
   placeholder,
@@ -10,7 +12,7 @@ export const LocationSearchField = ({
   onChange: (value: string) => void;
 }) => {
   return (
-    <div className="search-field">
+    <div className={styles['search-field']}>
       <label>{label}</label>
       <input
         type="text"
@@ -37,13 +39,13 @@ export const SearchField = ({
   onClick,
 }: SearchFieldProps) => {
   return (
-    <div className="search-field" onClick={onClick}>
+    <div className={styles['search-field']} onClick={onClick}>
       <label>{label}</label>
       <input
         type="text"
         placeholder={placeholder}
         value={value}
-        className="input"
+        className={styles.input}
         readOnly
       />
     </div>
