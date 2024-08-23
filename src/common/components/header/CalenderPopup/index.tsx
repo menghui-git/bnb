@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
 import { Calendar } from 'common/components/Calendar';
-import './index.scss';
+import styles from './index.module.scss';
 
 type Props = {
   className: string;
@@ -92,16 +92,16 @@ export const DateRangePopup = ({
 
   return (
     <div
-      className={`calender-popup ${className}`}
+      className={styles['calender-popup'] + ' ' + className}
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
-      <div className="tab-list">
+      <div className={styles['tab-list']}>
         {tabList.map((tab, index) => (
           <button
             key={tab}
-            className="tab"
+            className={styles.tab}
             data-selected={tab === selectedTab}
             onClick={() => setSelectedTab(tabList[index])}
           >
@@ -109,7 +109,7 @@ export const DateRangePopup = ({
           </button>
         ))}
       </div>
-      <div className="calendar-row" ref={refCalendarRow}>
+      <div className={styles['calendar-row']} ref={refCalendarRow}>
         <Calendar
           month={monthYearList[monthIndex]['month']}
           year={monthYearList[monthIndex]['year']}

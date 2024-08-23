@@ -1,7 +1,7 @@
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { IconButton } from '../../buttons';
-import './index.scss';
+import styles from './index.module.scss';
 
 const Panel = ({
   count,
@@ -25,14 +25,14 @@ const Panel = ({
   };
 
   return (
-    <div className="option-panel">
+    <div className={styles['option-panel']}>
       <IconButton
         icon={faMinus}
         buttonType="flat"
         disabled={disabled}
         onClick={(e) => onMinusClick(e)}
       />
-      <span className="count">{count}</span>
+      <span className={styles.count}>{count}</span>
       <IconButton icon={faPlus} buttonType="flat" onClick={onPlusClick} />
     </div>
   );
@@ -82,16 +82,16 @@ export const GuestPopup = ({ className, value, onValueChange }: Props) => {
 
   return (
     <div
-      className={`guest-popup ${className}`}
+      className={styles['guest-popup'] + ' ' + className}
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
       {optionList.map((option, index) => (
-        <div key={index} className="option">
+        <div key={index} className={styles.option}>
           <div>
-            <div className="name">{option.name}</div>
-            <div className="desc">{option.desc}</div>
+            <div className={styles.name}>{option.name}</div>
+            <div className={styles.desc}>{option.desc}</div>
           </div>
           <Panel
             count={option.count}

@@ -1,0 +1,10 @@
+.search-field {
+  padding: 14px 2rem;
+  position: relative;
+
+  .input {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    outline: none;
+  }
+}

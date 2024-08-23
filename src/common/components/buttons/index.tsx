@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import './index.scss';
+import styles from './index.module.scss';
 
 type IconButtonProps = {
   icon: IconProp;
@@ -26,7 +26,7 @@ export const IconButton = ({
 }: IconButtonProps) => {
   return (
     <button
-      className={`icon-button ${className}`}
+      className={styles['icon-button'] + ' ' + className}
       data-type={buttonType}
       onClick={onClick}
       disabled={disabled}

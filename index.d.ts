@@ -1,3 +1,5 @@
+declare module '*.module.scss';
+
 declare namespace API {
   type RoomListResponse = {
     totalCount: number;

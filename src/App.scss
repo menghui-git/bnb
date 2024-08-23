@@ -15,42 +15,15 @@ body {
   align-items: center;
 }
 
-#root { 
-   width: 100vw;
-   padding: 2rem;
+#root {
+  width: 100vw;
+  padding: 2rem;
 }
 
 .hidden {
- visibility: hidden;
+  visibility: hidden;
 }
 
 .not-display {
   display: none;
-}
-
-/* body */
-.result {
-  flex: 0 1 auto;
-  overflow: auto;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(calc(4), 1fr);
-  column-gap: 1.5rem;
-  row-gap: 2.5rem;
-
-  padding-inline-start: 5rem;
-  padding-inline-end: 5rem;
-
-  width: 100vw;
-}
-
-.room-overview {
-  display: flex;
-  justify-content: space-between;
-}
-
-.rating {
-  display: flex;
 }

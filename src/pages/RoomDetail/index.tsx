@@ -25,16 +25,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Header } from '../../common/components/header/Header';
 import { getRoom } from '../../data';
-import './index.scss';
+import styles from './index.module.scss';
 
 const getPhotoGrids = (room: API.RoomDetail) => {
   return (
-    <div className="photo-grid-container">
-      <img className="photo-1" src={room.xl_picture_url} alt="" />
-      <img className="photo-2" src={room.xl_picture_url} alt="" />
-      <img className="photo-3" src={room.xl_picture_url} alt="" />
-      <img className="photo-4" src={room.xl_picture_url} alt="" />
-      <img className="photo-5" src={room.xl_picture_url} alt="" />
+    <div className={styles['photo-grid-container']}>
+      <img className={styles['photo-1']} src={room.xl_picture_url} alt="" />
+      <img className={styles['photo-2']} src={room.xl_picture_url} alt="" />
+      <img className={styles['photo-3']} src={room.xl_picture_url} alt="" />
+      <img className={styles['photo-4']} src={room.xl_picture_url} alt="" />
+      <img className={styles['photo-5']} src={room.xl_picture_url} alt="" />
     </div>
   );
 };
@@ -55,18 +55,21 @@ const getAmenities = (amenities: string[] = []) => {
   const DisplayCount = 8;
   // show the first 8 amenities
   const amenityItems = amenities.slice(0, DisplayCount).map((amenity) => (
-    <div className="amenity" key={amenity}>
+    <div className={styles.amenity} key={amenity}>
       <div>
-        <FontAwesomeIcon className="fa-icon" icon={amenityIconMap[amenity]} />
+        <FontAwesomeIcon
+          className={styles['fa-icon']}
+          icon={amenityIconMap[amenity]}
+        />
       </div>
-      <div className="amenity-name">{amenity}</div>
+      <div className={styles['amenity-name']}>{amenity}</div>
     </div>
   ));
 
   return (
     <>
-      <div className="amenity-container">{amenityItems}</div>
-      <div className="amenity-info-box">
+      <div className={styles['amenity-container']}>{amenityItems}</div>
+      <div className={styles['amenity-info-box']}>
         Show all {amenities.length} amenities
       </div>
     </>
@@ -88,10 +91,10 @@ const ScoreBar = ({
   }
 
   return (
-    <div className="rating-item">
+    <div className={styles['rating-item']}>
       <span>{score}</span>
-      <span className="rating-bar">
-        <div className="bar-body" ref={ratingBar} />
+      <span className={styles['rating-bar']}>
+        <div className={styles['bar-body']} ref={ratingBar} />
       </span>
     </div>
   );
@@ -107,7 +110,7 @@ const ReviewType = ({
   icon: IconDefinition;
 }) => {
   return (
-    <div className="score-item">
+    <div className={styles['score-item']}>
       <div>
         <div>{name}</div>
         <div>{value}</div>
@@ -142,13 +145,13 @@ const getReview = (room: API.RoomDetail) => {
   ];
 
   return (
-    <div className="info-box">
-      <h2 className="review-overall">
+    <div className={styles['info-box']}>
+      <h2 className={styles['review-overall']}>
         <FontAwesomeIcon icon={faStar} />
         {point} {reviews} reviews
       </h2>
-      <div className="review-container">
-        <div className="score-item">
+      <div className={styles['review-container']}>
+        <div className={styles['score-item']}>
           <div>Overall rating</div>
           {room.ratings?.map((rating: API.Rating) => (
             <ScoreBar
@@ -193,10 +196,10 @@ export const RoomDetail = () => {
   return (
     <>
       {Header}
-      <div className="room-body">
-        <div className="room-header">
+      <div className={styles['room-body']}>
+        <div className={styles['room-header']}>
           <h1>{room.name}</h1>
-          <div className="room-action">
+          <div className={styles['room-action']}>
             <div>
               <FontAwesomeIcon icon={faArrowUpFromBracket} />
               Share
@@ -208,7 +211,7 @@ export const RoomDetail = () => {
           </div>
         </div>
         {PhotoGrids}
-        <div className="general-info">
+        <div className={styles['general-info']}>
           <section>
             <h2>
               {room.room_type} in {room.host_location}
@@ -218,17 +221,21 @@ export const RoomDetail = () => {
             </div>
           </section>
         </div>
-        <div className="room-info">
-          <div className="info-box host-box ">
-            <img className="host-pic" src={room.host_picture_url} alt="" />
+        <div className={styles['room-info']}>
+          <div className={styles['info-box'] + ' ' + styles['host-box']}>
+            <img
+              className={styles['host-pic']}
+              src={room.host_picture_url}
+              alt=""
+            />
             <div>
               <div>Hosted by {room.host_name}</div>
-              <div className="host-info">
+              <div className={styles['host-info']}>
                 {now.getFullYear() - hostSince.getFullYear()} years hosting
               </div>
             </div>
           </div>
-          <div className="info-box">
+          <div className={styles['info-box']}>
             <div>
               <div>{room.summary}</div>
               <br />
@@ -236,9 +243,9 @@ export const RoomDetail = () => {
               <div>{room.space}</div>
             </div>
           </div>
-          <div className="info-box">
+          <div className={styles['info-box']}>
             <h2>Where you&apos;ll sleep</h2>
-            <div className="room-info-box">
+            <div className={styles['room-info-box']}>
               <FontAwesomeIcon icon={faBed} />
               <div>Bedroom</div>
               <div>
@@ -247,14 +254,14 @@ export const RoomDetail = () => {
             </div>
           </div>
 
-          <div className="info-box">
+          <div className={styles['info-box']}>
             <h2>What this place offers</h2>
             {Amenities}
           </div>
         </div>
         {Review}
 
-        <div className="info-box">
+        <div className={styles['info-box']}>
           <h2>Neighborhood highlights</h2>
           <div>{room.neighborhood_overview}</div>
           <div>Show more </div>

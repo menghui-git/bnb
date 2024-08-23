@@ -1,7 +1,7 @@
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import './index.scss';
+import styles from './index.module.scss';
 
 type Props = {
   toggled: boolean;
@@ -10,9 +10,9 @@ type Props = {
 
 export const Toggle = ({ toggled, onClick }: Props) => {
   return (
-    <div className="toggle" data-toggled={toggled}>
-      <div className="button" onClick={onClick}>
-        <div className="check-icon">
+    <div className={styles.toggle} data-toggled={toggled}>
+      <div className={styles.button} onClick={onClick}>
+        <div className={styles['check-icon']}>
           <FontAwesomeIcon icon={faCheck} />
         </div>
       </div>

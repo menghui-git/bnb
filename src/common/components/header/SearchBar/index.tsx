@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DateRangePopup } from '../CalenderPopup';
 import { GuestPopup } from '../GuestPopup';
 import { LocationSearchField, SearchField } from '../SearchField';
-import './index.scss';
+import styles from './index.module.scss';
 
 export const SearchBar = () => {
   // search data
@@ -66,8 +66,11 @@ export const SearchBar = () => {
   };
 
   return (
-    <div className="search-bar-outer">
-      <form className="search-bar" onSubmit={(e) => e.preventDefault()}>
+    <div className={styles['search-bar-outer']}>
+      <form
+        className={styles['search-bar']}
+        onSubmit={(e) => e.preventDefault()}
+      >
         <LocationSearchField
           label="Where"
           placeholder="Search destinations"
@@ -86,19 +89,19 @@ export const SearchBar = () => {
           value={getDateString(checkOut!)}
           onClick={onDateFieldClick}
         />
-        <div className="search">
+        <div className={styles.search}>
           <SearchField
             onClick={onGuestFieldClick}
             label="Who"
             placeholder="Add guests"
             value={getGuestString(guestData)}
           />
-          <div className="search-icon">
+          <div className={styles['search-icon']}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </div>
         </div>
       </form>
-      <div className="popup-container">
+      <div className={styles['popup-container']}>
         <DateRangePopup
           className={showDatePopup ? '' : 'hidden'}
           startDate={checkIn!}
