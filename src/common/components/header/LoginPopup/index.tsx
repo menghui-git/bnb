@@ -4,20 +4,14 @@ import { AuthContext } from 'pages/PageLayout';
 import styles from './index.module.scss';
 
 type Props = {
-  showPopup: boolean;
+  show: boolean;
   onLoginClick: () => void;
   onSignupClick: () => void;
 };
 
-export const LoginPopup = ({
-  showPopup,
-  onLoginClick,
-  onSignupClick,
-}: Props) => {
-  const className = `${styles.popup} ${showPopup ? '' : 'hidden'}`;
-  const authContext = useContext(AuthContext);
-  const user = authContext.user;
-  const logout = authContext.logout;
+export const LoginPopup = ({ show, onLoginClick, onSignupClick }: Props) => {
+  const className = `${styles.popup} ${show ? '' : 'hidden'}`;
+  const { user, logout } = useContext(AuthContext);
 
   const options = [];
   if (user) {

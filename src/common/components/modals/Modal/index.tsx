@@ -3,20 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styles from './index.module.scss';
 
-type OverlayProps = {
-  showOverlay: boolean;
-  titleName: string;
+type Props = {
+  show: boolean;
+  title: string;
   children: React.ReactNode;
   onClose: () => void;
 };
 
-export const Overlay = ({
-  showOverlay,
-  titleName,
-  children,
-  onClose,
-}: OverlayProps) => {
-  const className = `${styles.overlay} ${showOverlay ? '' : 'hidden'}`;
+export const Modal = ({ show, title, children, onClose }: Props) => {
+  // TODO: solve https://github.com/menghui-git/bnb/pull/15#discussion_r1770771233
+
+  const className = `${styles.modal} ${show ? '' : 'hidden'}`;
 
   return (
     <div className={className} onClick={onClose}>
@@ -31,7 +28,7 @@ export const Overlay = ({
           <button className={styles['close-button']} onClick={onClose}>
             <FontAwesomeIcon icon={faXmark} />
           </button>
-          <div className={styles.name}>{titleName}</div>
+          <div className={styles.name}>{title}</div>
         </div>
         {children}
       </div>

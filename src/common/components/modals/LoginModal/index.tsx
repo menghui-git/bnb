@@ -1,16 +1,19 @@
 import { useContext, useState } from 'react';
 
+import { Modal } from 'common/components/modals/Modal';
 import { AuthContext } from 'pages/PageLayout';
-import { Overlay } from '../overlay';
 
 import styles from './index.module.scss';
 
-type LoginOverlayProps = { onClose: () => void; showOverlay: boolean };
+type Props = {
+  show: boolean;
+  onClose: () => void;
+};
 
-export const LoginOverlay = ({ onClose, showOverlay }: LoginOverlayProps) => {
+export const LoginModal = ({ show, onClose }: Props) => {
   const [account, setAccount] = useState('');
 
-  const login = useContext(AuthContext).login;
+  const { login } = useContext(AuthContext);
 
   const onLogin = () => {
     login(account);
@@ -23,11 +26,7 @@ export const LoginOverlay = ({ onClose, showOverlay }: LoginOverlayProps) => {
   };
 
   return (
-    <Overlay
-      showOverlay={showOverlay}
-      titleName="Log in"
-      onClose={closeOverlay}
-    >
+    <Modal show={show} title="Log in" onClose={closeOverlay}>
       <div className={styles.content}>
         <div className={styles.header}>Welcome to Airbnb</div>
         <input
@@ -43,6 +42,6 @@ export const LoginOverlay = ({ onClose, showOverlay }: LoginOverlayProps) => {
           Continue
         </button>
       </div>
-    </Overlay>
+    </Modal>
   );
 };

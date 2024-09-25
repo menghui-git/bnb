@@ -3,14 +3,17 @@ import { useContext, useState } from 'react';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { Modal } from 'common/components/modals/Modal';
+import { ValidatedInput } from 'common/components/ValidatedInput';
 import { AuthContext } from 'pages/PageLayout';
-import { Overlay } from '../overlay';
-import { ValidatedInput } from '../ValidatedInput';
 import styles from './index.module.scss';
 
-type SignUpOverlayProps = { onClose: () => void; showOverlay: boolean };
+type Props = {
+  show: boolean;
+  onClose: () => void;
+};
 
-export const SignUpOverlay = ({ onClose, showOverlay }: SignUpOverlayProps) => {
+export const SignUpModal = ({ show, onClose }: Props) => {
   // values
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -25,7 +28,7 @@ export const SignUpOverlay = ({ onClose, showOverlay }: SignUpOverlayProps) => {
   const [passwordError, setPasswordError] = useState('');
   const [password2Error, setPassword2Error] = useState('');
 
-  const login = useContext(AuthContext).login;
+  const { login } = useContext(AuthContext);
 
   // validators
   const validateFullName = (fullName: string) => {
@@ -98,11 +101,11 @@ export const SignUpOverlay = ({ onClose, showOverlay }: SignUpOverlayProps) => {
     validatePassword2(password2);
     if (canSignUp()) {
       login(fullName);
-      closeOverlay();
+      closeModal();
     }
   };
 
-  const closeOverlay = () => {
+  const closeModal = () => {
     setFullName('');
     setEmail('');
     setPassword('');
@@ -118,11 +121,7 @@ export const SignUpOverlay = ({ onClose, showOverlay }: SignUpOverlayProps) => {
   };
 
   return (
-    <Overlay
-      showOverlay={showOverlay}
-      titleName="Sign up"
-      onClose={closeOverlay}
-    >
+    <Modal show={show} title="Sign up" onClose={closeModal}>
       <div className={styles.content}>
         <div className={styles.header}>Sign up and start Airbnb right now</div>
 
@@ -188,6 +187,6 @@ export const SignUpOverlay = ({ onClose, showOverlay }: SignUpOverlayProps) => {
           Sign up
         </button>
       </div>
-    </Overlay>
+    </Modal>
   );
 };

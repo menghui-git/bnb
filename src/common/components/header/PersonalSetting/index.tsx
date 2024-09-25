@@ -6,19 +6,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { LoginOverlay } from 'common/components/LoginOverlay';
-import { SignUpOverlay } from 'common/components/SignUpOverlay';
+import { LoginPopup } from 'common/components/header/LoginPopup';
+import { LoginModal } from 'common/components/modals/LoginModal';
+import { SignUpModal } from 'common/components/modals/SignUpModal';
 import { AuthContext } from 'pages/PageLayout';
-import { LoginPopup } from '../LoginPopup';
 
 import styles from './index.module.scss';
 
 export const PersonalSetting = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const [showLoginOverlay, setShowLoginOverlay] = useState(false);
-  const [showSignUpOverlay, setShowSignUpOverlay] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
 
-  const user = useContext(AuthContext).user;
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const handleWindowClick = (e: MouseEvent) => {
@@ -35,9 +35,9 @@ export const PersonalSetting = () => {
       return (
         <FontAwesomeIcon icon={faCircleUser} className={styles['user-icon']} />
       );
-    } else {
-      return <div className={styles.user}>{user[0]}</div>;
     }
+
+    return <div className={styles.user}>{user[0]}</div>;
   };
 
   return (
@@ -48,7 +48,7 @@ export const PersonalSetting = () => {
         className={`${styles.item} ${styles['login-button']}`}
         onClick={(e: ReactEventClick) => {
           e.stopPropagation();
-          if (!showLoginOverlay && !showSignUpOverlay) setShowPopup(!showPopup);
+          if (!showLoginModal && !showSignUpModal) setShowPopup(!showPopup);
         }}
       >
         <FontAwesomeIcon
@@ -57,26 +57,26 @@ export const PersonalSetting = () => {
         />
         <UserIcon />
         <LoginPopup
-          showPopup={showPopup}
+          show={showPopup}
           onLoginClick={() => {
             setShowPopup(false);
-            setShowLoginOverlay(true);
+            setShowLoginModal(true);
           }}
           onSignupClick={() => {
             setShowPopup(false);
-            setShowSignUpOverlay(true);
+            setShowSignUpModal(true);
           }}
         />
-        <LoginOverlay
-          showOverlay={showLoginOverlay}
+        <LoginModal
+          show={showLoginModal}
           onClose={() => {
-            setShowLoginOverlay(false);
+            setShowLoginModal(false);
           }}
         />
-        <SignUpOverlay
-          showOverlay={showSignUpOverlay}
+        <SignUpModal
+          show={showSignUpModal}
           onClose={() => {
-            setShowSignUpOverlay(false);
+            setShowSignUpModal(false);
           }}
         />
       </button>
