@@ -6,6 +6,8 @@
 
 .card {
   position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
 
   a {
     text-decoration: none;
@@ -14,11 +16,13 @@
 
   .slide-container {
     position: relative;
+    width: 100%;
+    height: 100%;
 
     .image-container {
       position: relative;
-      width: var(--card-width);
-      height: var(--card-height);
+      width: 100%;
+      height: 100%;
       overflow: hidden;
       position: relative;
       border-radius: var(--card-radius);

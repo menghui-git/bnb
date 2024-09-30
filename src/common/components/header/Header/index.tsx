@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { LeftButton, RightButton } from 'common/components/buttons';
 import { Toggle } from 'common/components/toggle';
-import { Preference } from '../Preference';
+import { PersonalSetting } from '../PersonalSetting';
 import { SearchBar } from '../SearchBar';
 import styles from './index.module.scss';
 
@@ -47,7 +47,7 @@ export const Header = ({ categories = [] }: Props) => {
     <div className={styles.header}>
       <div className={styles.nav}>
         <FontAwesomeIcon icon={faAirbnb} />
-        <Preference />
+        <PersonalSetting />
       </div>
       <div className={styles['nav-search']}>
         <SearchBar />

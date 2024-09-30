@@ -1,0 +1,46 @@
+.preference {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+
+  .item {
+    margin-block: auto;
+    cursor: pointer;
+  }
+
+  .icon {
+    font-size: 1.125rem;
+  }
+
+  .login-button {
+    border: 1.5px solid #dddddd;
+    border-radius: 24px;
+    background-color: #ffffff;
+
+    display: flex;
+    position: relative;
+
+    .menu {
+      margin: 0.875rem;
+    }
+
+    .user-icon {
+      margin: 0.5rem;
+      font-size: 2rem;
+    }
+
+    .user {
+      margin: 0.5rem;
+      border: none;
+      border-radius: 50%;
+
+      width: 2rem;
+      height: 2rem;
+      background-color: #fc385c;
+      color: #ffffff;
+
+      display: grid;
+      place-content: center;
+    }
+  }
+}
