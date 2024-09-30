@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -11,16 +13,32 @@ type Props = {
 };
 
 export const Modal = ({ show, title, children, onClose }: Props) => {
-  // TODO: solve https://github.com/menghui-git/bnb/pull/15#discussion_r1770771233
-
   const className = `${styles.modal} ${show ? '' : 'hidden'}`;
+  const [canClose, setCanClose] = useState(true);
 
   return (
-    <div className={className} onClick={onClose}>
+    <div
+      className={className}
+      data-backdrop
+      onClick={() => {
+        if (canClose) {
+          onClose();
+        }
+      }}
+      onMouseUp={(e) => {
+        setTimeout(() => {
+          setCanClose(true);
+        }, 0);
+      }}
+    >
       <div
         className={styles.popup}
+        data-dialog
+        onMouseDown={(e) => {
+          setCanClose(false);
+        }}
         onClick={(e) => {
-          e.preventDefault();
+          // prevent to close the modal
           e.stopPropagation();
         }}
       >
