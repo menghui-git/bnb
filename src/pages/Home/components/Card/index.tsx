@@ -17,8 +17,6 @@ const ImageSlides = forwardRef<HTMLDivElement, ImageSlideProps>(
   (props, ref) => {
     const { position, images, onImageLoad } = props;
     const positionStyle = { transform: `translateX(${position}px)` };
-    const getOnLoadHandler = (index: number) =>
-      index === 0 ? onImageLoad : () => {};
 
     return (
       <div className={styles['image-container']} ref={ref}>
@@ -29,7 +27,7 @@ const ImageSlides = forwardRef<HTMLDivElement, ImageSlideProps>(
               className={styles.slide}
               src={image.url}
               alt=""
-              onLoad={getOnLoadHandler(index)}
+              onLoad={index === 0 ? () => onImageLoad() : undefined}
             />
           ))}
         </div>

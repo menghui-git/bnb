@@ -21,10 +21,10 @@ const roomListSlice = createSlice({
     loadNewPage(state, action: PayloadAction) {
       if (state.pageIndex + 1 < state.totalPages) state.pageIndex += 1;
     },
-    updateRooms(state, action: PayloadAction<API.RoomListResponse | null>) {
-      state.totalPages = action.payload?.totalPages as number;
+    updateRooms(state, action: PayloadAction<API.RoomListResponse>) {
+      state.totalPages = action.payload.totalPages;
 
-      state.rooms = [...state.rooms, ...(action.payload?.rooms || [])];
+      state.rooms = [...state.rooms, ...action.payload.rooms];
     },
   },
 });
