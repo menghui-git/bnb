@@ -67,19 +67,19 @@ export const PersonalSetting = () => {
             setShowSignUpModal(true);
           }}
         />
-        <LoginModal
-          show={showLoginModal}
-          onClose={() => {
-            setShowLoginModal(false);
-          }}
-        />
-        <SignUpModal
-          show={showSignUpModal}
-          onClose={() => {
-            setShowSignUpModal(false);
-          }}
-        />
       </button>
+      <LoginModal
+        show={showLoginModal}
+        onClose={() => {
+          setShowLoginModal(false);
+        }}
+      />
+      <SignUpModal
+        show={showSignUpModal}
+        onClose={() => {
+          setShowSignUpModal(false);
+        }}
+      />
     </div>
   );
 };
