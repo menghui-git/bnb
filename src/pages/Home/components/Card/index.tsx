@@ -10,15 +10,15 @@ import styles from './index.module.scss';
 type ImageSlideProps = {
   position: number;
   images: API.Image[];
-  onPictureLoad: () => void;
+  onImageLoad: () => void;
 };
 
 const ImageSlides = forwardRef<HTMLDivElement, ImageSlideProps>(
   (props, ref) => {
-    const { position, images, onPictureLoad } = props;
+    const { position, images, onImageLoad } = props;
     const positionStyle = { transform: `translateX(${position}px)` };
     const getOnLoadHandler = (index: number) =>
-      index === 0 ? onPictureLoad : () => {};
+      index === 0 ? onImageLoad : () => {};
 
     return (
       <div className={styles['image-container']} ref={ref}>
@@ -83,19 +83,18 @@ const RoomOverview = ({
 type Props = {
   room: API.Room;
   currency: string;
-  onPictureLoad: () => void;
-  isLoading: boolean;
 };
 
 export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
-  const { room, currency, onPictureLoad, isLoading } = props;
+  const { room, currency } = props;
 
+  const [isImageLoading, setImageLoading] = useState(true);
   const [imgIndex, setImgIndex] = useState(0);
   const [position, setPosition] = useState(0);
   const imageListRef = useRef<HTMLDivElement>(null);
 
   const cardStyle =
-    styles.card + ' ' + (isLoading ? styles['not-display'] : '');
+    styles.card + ' ' + (isImageLoading ? styles['not-display'] : '');
   const roomLink = `/room/${room.id}`;
   const imgCount = room.images.length;
 
@@ -131,10 +130,9 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
     }
   };
 
-  // TODO: make each card manages its own isLoading state by itself
   return (
     <div className={styles['card-container']} ref={ref}>
-      <Skeleton isLoading={isLoading} />
+      <Skeleton isLoading={isImageLoading} />
       <div className={cardStyle}>
         <Link to={roomLink} key={room.id}>
           <div className={styles['slide-container']}>
@@ -142,7 +140,7 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
               ref={imageListRef}
               position={position}
               images={room.images}
-              onPictureLoad={onPictureLoad}
+              onImageLoad={() => setImageLoading(false)}
             />
             <Indicator images={room.images} imgIndex={imgIndex} />
             <div className={styles['card-overlay']}>
