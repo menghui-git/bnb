@@ -1,29 +1,37 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type SignUpState = {
-  fullName: string;
-  email: string;
-  password: string;
-  password2: string;
-  passwordHidden: boolean;
-  passwordHidden2: boolean;
-  fullNameError: string;
-  emailError: string;
-  passwordError: string;
-  password2Error: string;
+  loading: boolean;
+  saving: boolean;
+  data: {
+    fullName: string;
+    email: string;
+    password: string;
+    password2: string;
+    passwordHidden: boolean;
+    passwordHidden2: boolean;
+    fullNameError: string;
+    emailError: string;
+    passwordError: string;
+    password2Error: string;
+  };
 };
 
 const initialState: SignUpState = {
-  fullName: '',
-  email: '',
-  password: '',
-  password2: '',
-  passwordHidden: true,
-  passwordHidden2: true,
-  fullNameError: '',
-  emailError: '',
-  passwordError: '',
-  password2Error: '',
+  loading: false,
+  saving: false,
+  data: {
+    fullName: '',
+    email: '',
+    password: '',
+    password2: '',
+    passwordHidden: true,
+    passwordHidden2: true,
+    fullNameError: '',
+    emailError: '',
+    passwordError: '',
+    password2Error: '',
+  },
 };
 
 // validators
@@ -67,60 +75,55 @@ const validatePassword2 = (password2: string, password: string) => {
 };
 
 const signUpSlice = createSlice({
-  name: 'signUpData',
+  name: 'signUp',
   initialState,
   reducers: {
-    inputFullName(state, action: PayloadAction<string>) {
-      state.fullName = action.payload;
-      state.fullNameError = validateFullName(state.fullName);
+    setFullName(state, action: PayloadAction<string>) {
+      state.data.fullName = action.payload;
+      state.data.fullNameError = validateFullName(state.data.fullName);
     },
-    inputEmail(state, action: PayloadAction<string>) {
-      state.email = action.payload;
-      state.emailError = validateEmail(state.email);
+    setEmail(state, action: PayloadAction<string>) {
+      state.data.email = action.payload;
+      state.data.emailError = validateEmail(state.data.email);
     },
-    inputPassword(state, action: PayloadAction<string>) {
-      state.password = action.payload;
-      state.passwordError = validatePassword(state.password);
+    setPassword(state, action: PayloadAction<string>) {
+      state.data.password = action.payload;
+      state.data.passwordError = validatePassword(state.data.password);
     },
-    inputPassword2(state, action: PayloadAction<string>) {
-      state.password2 = action.payload;
-      state.password2Error = validatePassword2(state.password2, state.password);
+    setPassword2(state, action: PayloadAction<string>) {
+      state.data.password2 = action.payload;
+      state.data.password2Error = validatePassword2(
+        state.data.password2,
+        state.data.password,
+      );
     },
     validateAllFields(state, action: PayloadAction) {
-      state.fullNameError = validateFullName(state.fullName);
-      state.emailError = validateEmail(state.email);
-      state.passwordError = validatePassword(state.password);
-      state.password2Error = validatePassword2(state.password2, state.password);
+      const data = state.data;
+      data.fullNameError = validateFullName(data.fullName);
+      data.emailError = validateEmail(data.email);
+      data.passwordError = validatePassword(data.password);
+      data.password2Error = validatePassword2(data.password2, data.password);
     },
-    onHidePasswodClick(state, action: PayloadAction) {
-      state.passwordHidden = !state.passwordHidden;
+    toggleDisplayPassword(state, action: PayloadAction) {
+      state.data.passwordHidden = !state.data.passwordHidden;
     },
-    onHidePasswod2Click(state, action: PayloadAction) {
-      state.passwordHidden2 = !state.passwordHidden2;
+    toggleDisplayPassword2(state, action: PayloadAction) {
+      state.data.passwordHidden2 = !state.data.passwordHidden2;
     },
     clearData(state, action: PayloadAction) {
-      state.fullName = '';
-      state.email = '';
-      state.password = '';
-      state.password2 = '';
-      state.passwordHidden = true;
-      state.passwordHidden2 = true;
-      state.fullNameError = '';
-      state.emailError = '';
-      state.passwordError = '';
-      state.password2Error = '';
+      state.data = { ...initialState.data };
     },
   },
 });
 
 export const {
-  inputFullName,
-  inputEmail,
-  inputPassword,
-  inputPassword2,
+  setFullName,
+  setEmail,
+  setPassword,
+  setPassword2,
   validateAllFields,
-  onHidePasswodClick,
-  onHidePasswod2Click,
+  toggleDisplayPassword,
+  toggleDisplayPassword2,
   clearData,
 } = signUpSlice.actions;
 export default signUpSlice.reducer;

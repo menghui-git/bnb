@@ -5,7 +5,7 @@ import roomListSlice from 'pages/Home/roomListSlice';
 export const store = configureStore({
   reducer: {
     rooms: roomListSlice,
-    signUpData: signUpSlice,
+    signUp: signUpSlice,
   },
 });
 

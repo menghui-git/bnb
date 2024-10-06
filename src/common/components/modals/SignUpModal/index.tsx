@@ -10,13 +10,13 @@ import { ValidatedInput } from 'common/components/ValidatedInput';
 import { AuthContext } from 'pages/PageLayout';
 import styles from './index.module.scss';
 import {
-  inputFullName,
-  inputEmail,
-  inputPassword,
-  inputPassword2,
+  setFullName,
+  setEmail,
+  setPassword,
+  setPassword2,
   validateAllFields,
-  onHidePasswodClick,
-  onHidePasswod2Click,
+  toggleDisplayPassword,
+  toggleDisplayPassword2,
   clearData,
 } from './signUpSlice';
 
@@ -28,7 +28,7 @@ type Props = {
 export const SignUpModal = ({ show, onClose }: Props) => {
   const { login } = useContext(AuthContext);
 
-  const signUpData = useSelector((state: RootState) => state.signUpData);
+  const signUpData = useSelector((state: RootState) => state.signUp);
   const dispatch = useDispatch();
 
   const {
@@ -42,7 +42,7 @@ export const SignUpModal = ({ show, onClose }: Props) => {
     emailError,
     passwordError,
     password2Error,
-  } = signUpData;
+  } = signUpData.data;
 
   const canSignUp = () => {
     return (
@@ -79,7 +79,7 @@ export const SignUpModal = ({ show, onClose }: Props) => {
           value={fullName}
           placeholder="Full name"
           onChange={(e) => {
-            dispatch(inputFullName(e.target.value));
+            dispatch(setFullName(e.target.value));
           }}
           error={fullNameError}
         />
@@ -88,7 +88,7 @@ export const SignUpModal = ({ show, onClose }: Props) => {
           value={email}
           placeholder="Email"
           onChange={(e) => {
-            dispatch(inputEmail(e.target.value));
+            dispatch(setEmail(e.target.value));
           }}
           error={emailError}
         />
@@ -100,11 +100,11 @@ export const SignUpModal = ({ show, onClose }: Props) => {
           icon={
             <FontAwesomeIcon
               icon={passwordHidden ? faEyeSlash : faEye}
-              onClick={() => dispatch(onHidePasswodClick())}
+              onClick={() => dispatch(toggleDisplayPassword())}
             />
           }
           onChange={(e) => {
-            dispatch(inputPassword(e.target.value));
+            dispatch(setPassword(e.target.value));
           }}
           error={passwordError}
         />
@@ -116,11 +116,11 @@ export const SignUpModal = ({ show, onClose }: Props) => {
           icon={
             <FontAwesomeIcon
               icon={passwordHidden2 ? faEyeSlash : faEye}
-              onClick={() => dispatch(onHidePasswod2Click())}
+              onClick={() => dispatch(toggleDisplayPassword2())}
             />
           }
           onChange={(e) => {
-            dispatch(inputPassword2(e.target.value));
+            dispatch(setPassword2(e.target.value));
           }}
           error={password2Error}
         />
