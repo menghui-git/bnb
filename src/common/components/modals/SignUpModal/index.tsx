@@ -1,12 +1,24 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { RootState } from 'app/store';
 import { Modal } from 'common/components/modals/Modal';
 import { ValidatedInput } from 'common/components/ValidatedInput';
 import { AuthContext } from 'pages/PageLayout';
 import styles from './index.module.scss';
+import {
+  inputFullName,
+  inputEmail,
+  inputPassword,
+  inputPassword2,
+  validateAllFields,
+  onHidePasswodClick,
+  onHidePasswod2Click,
+  clearData,
+} from './signUpSlice';
 
 type Props = {
   show: boolean;
@@ -14,72 +26,23 @@ type Props = {
 };
 
 export const SignUpModal = ({ show, onClose }: Props) => {
-  // values
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
-  // hide password
-  const [passwordHidden, setPasswordHidden] = useState(true);
-  const [passwordHidden2, setPasswordHidden2] = useState(true);
-  // errors
-  const [fullNameError, setFullNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [password2Error, setPassword2Error] = useState('');
-
   const { login } = useContext(AuthContext);
 
-  // validators
-  const validateFullName = (fullName: string) => {
-    if (!fullName) {
-      setFullNameError('Please enter');
-    } else if (fullName.length <= 3) {
-      setFullNameError('Too short');
-    } else {
-      setFullNameError('');
-    }
-  };
+  const signUpData = useSelector((state: RootState) => state.signUpData);
+  const dispatch = useDispatch();
 
-  const validateEmail = (email: string) => {
-    const isValidEmail = () => {
-      return email.match(
-        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      );
-    };
-
-    if (!email) {
-      setEmailError('Please enter');
-    } else if (!isValidEmail()) {
-      setEmailError('Invalid email');
-    } else {
-      setEmailError('');
-    }
-  };
-
-  const validatePassword = (password: string) => {
-    const isValidPassword = () => {
-      return password.match(/^[a-zA-Z0-9]{8,}$/);
-    };
-
-    if (!password) {
-      setPasswordError('Please enter');
-    } else if (!isValidPassword()) {
-      setPasswordError('Must contain 8 digits of alphabets and numbers');
-    } else {
-      setPasswordError('');
-    }
-  };
-
-  const validatePassword2 = (password2: string) => {
-    if (!password2) {
-      setPassword2Error('Please enter');
-    } else if (password2 !== password) {
-      setPassword2Error('Wrong password');
-    } else {
-      setPassword2Error('');
-    }
-  };
+  const {
+    fullName,
+    email,
+    password,
+    password2,
+    passwordHidden,
+    passwordHidden2,
+    fullNameError,
+    emailError,
+    passwordError,
+    password2Error,
+  } = signUpData;
 
   const canSignUp = () => {
     return (
@@ -95,10 +58,7 @@ export const SignUpModal = ({ show, onClose }: Props) => {
   };
 
   const onSignUp = () => {
-    validateFullName(fullName);
-    validateEmail(email);
-    validatePassword(password);
-    validatePassword2(password2);
+    dispatch(validateAllFields());
     if (canSignUp()) {
       login(fullName);
       closeModal();
@@ -106,17 +66,7 @@ export const SignUpModal = ({ show, onClose }: Props) => {
   };
 
   const closeModal = () => {
-    setFullName('');
-    setEmail('');
-    setPassword('');
-    setPassword2('');
-    setPasswordHidden(true);
-    setPasswordHidden2(true);
-    setFullNameError('');
-    setEmailError('');
-    setPasswordError('');
-    setPassword2Error('');
-
+    dispatch(clearData());
     onClose();
   };
 
@@ -129,8 +79,7 @@ export const SignUpModal = ({ show, onClose }: Props) => {
           value={fullName}
           placeholder="Full name"
           onChange={(e) => {
-            setFullName(e.target.value);
-            validateFullName(e.target.value);
+            dispatch(inputFullName(e.target.value));
           }}
           error={fullNameError}
         />
@@ -139,8 +88,7 @@ export const SignUpModal = ({ show, onClose }: Props) => {
           value={email}
           placeholder="Email"
           onChange={(e) => {
-            setEmail(e.target.value);
-            validateEmail(e.target.value);
+            dispatch(inputEmail(e.target.value));
           }}
           error={emailError}
         />
@@ -152,12 +100,11 @@ export const SignUpModal = ({ show, onClose }: Props) => {
           icon={
             <FontAwesomeIcon
               icon={passwordHidden ? faEyeSlash : faEye}
-              onClick={() => setPasswordHidden(!passwordHidden)}
+              onClick={() => dispatch(onHidePasswodClick())}
             />
           }
           onChange={(e) => {
-            setPassword(e.target.value);
-            validatePassword(e.target.value);
+            dispatch(inputPassword(e.target.value));
           }}
           error={passwordError}
         />
@@ -169,12 +116,11 @@ export const SignUpModal = ({ show, onClose }: Props) => {
           icon={
             <FontAwesomeIcon
               icon={passwordHidden2 ? faEyeSlash : faEye}
-              onClick={() => setPasswordHidden2(!passwordHidden2)}
+              onClick={() => dispatch(onHidePasswod2Click())}
             />
           }
           onChange={(e) => {
-            setPassword2(e.target.value);
-            validatePassword2(e.target.value);
+            dispatch(inputPassword2(e.target.value));
           }}
           error={password2Error}
         />
