@@ -18,7 +18,7 @@ export const PersonalSetting = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
 
-  const { user } = useContext(AuthContext);
+  const { username } = useContext(AuthContext);
 
   useEffect(() => {
     const handleWindowClick = (e: MouseEvent) => {
@@ -31,13 +31,13 @@ export const PersonalSetting = () => {
   }, []);
 
   const UserIcon = () => {
-    if (!user) {
+    if (!username) {
       return (
         <FontAwesomeIcon icon={faCircleUser} className={styles['user-icon']} />
       );
     }
 
-    return <div className={styles.user}>{user[0]}</div>;
+    return <div className={styles.user}>{username[0]}</div>;
   };
 
   return (

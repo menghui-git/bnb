@@ -1,10 +1,11 @@
 import { useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { RootState } from 'app/store';
+import { signUpAsync } from 'app/authSlice';
+import { RootState, useAppDispatch } from 'app/store';
 import { Modal } from 'common/components/modals/Modal';
 import { ValidatedInput } from 'common/components/ValidatedInput';
 import { AuthContext } from 'pages/PageLayout';
@@ -28,8 +29,8 @@ type Props = {
 export const SignUpModal = ({ show, onClose }: Props) => {
   const { login } = useContext(AuthContext);
 
-  const signUpData = useSelector((state: RootState) => state.signUp);
-  const dispatch = useDispatch();
+  const signUpData = useSelector((state: RootState) => state.signUp); // TODO: prepare useSelector with RootState
+  const dispatch = useAppDispatch();
 
   const {
     fullName,
@@ -60,7 +61,8 @@ export const SignUpModal = ({ show, onClose }: Props) => {
   const onSignUp = () => {
     dispatch(validateAllFields());
     if (canSignUp()) {
-      login(fullName);
+      dispatch(signUpAsync({ username: fullName, email, password, password2 }));
+      login(fullName, '');
       closeModal();
     }
   };

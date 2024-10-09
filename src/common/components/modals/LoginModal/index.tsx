@@ -11,12 +11,13 @@ type Props = {
 };
 
 export const LoginModal = ({ show, onClose }: Props) => {
+  // TODO: add password
   const [account, setAccount] = useState('');
 
   const { login } = useContext(AuthContext);
 
   const onLogin = () => {
-    login(account);
+    login(account, '');
     closeOverlay();
   };
 

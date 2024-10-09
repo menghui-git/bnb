@@ -25,10 +25,9 @@ const categories = [
   'A-frames',
   'Houseboats',
 ];
-const API_URL =
-  'https://pdlbsd6n42.execute-api.us-west-2.amazonaws.com/dev/room';
+const API_URL = 'https://7ixosa7s47.execute-api.us-west-2.amazonaws.com/dev';
 
-const getData = async <TData>(url: string) => {
+const getAsync = async <TData>(url: string) => {
   const response = await fetch(url);
   const data = await response.json();
 
@@ -36,8 +35,8 @@ const getData = async <TData>(url: string) => {
 };
 
 const getRoom = async (roomId: string) => {
-  const url = `${API_URL}/${roomId}`;
-  const roomData = await getData<API.RoomDetail>(url);
+  const url = `${API_URL}/room/${roomId}`;
+  const roomData = await getAsync<API.RoomDetail>(url);
 
   return roomData;
 };
@@ -53,10 +52,50 @@ const searchRooms = async (
   infants = '',
   pets = '',
 ) => {
-  const url = `${API_URL}?pageIndex=${pageIndex}&pageCount=${pageCount}`;
-  const searchedBnbs = await getData<API.RoomListResponse>(url);
+  const url = `${API_URL}/rooms?pageIndex=${pageIndex}&pageCount=${pageCount}`;
+  const searchedBnbs = await getAsync<API.RoomListResponse>(url);
 
   return searchedBnbs;
 };
 
-export { categories, searchRooms, getRoom };
+const postAsync = async (url: string, payload: any) => {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+  const data = await response.json();
+
+  return data;
+};
+
+const login = async (username: string, password: string) => {
+  const url = `${API_URL}/auth/login`;
+  const payload = { username, password };
+  try {
+    return postAsync(url, payload);
+  } catch (error) {
+    // TODO: handle error
+    return null;
+  }
+};
+
+const signUp = async (
+  username: string,
+  email: string,
+  password: string,
+  password2: string,
+) => {
+  const url = `${API_URL}/auth/register`;
+  const payload = { username, email, password, password2 };
+  try {
+    return postAsync(url, payload);
+  } catch (error) {
+    // TODO: handle error
+    return null;
+  }
+};
+
+export { categories, searchRooms, getRoom, login, signUp };
