@@ -1,19 +1,23 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
 
+import { useSelector } from 'react-redux';
+import { loginAsync } from 'app/authSlice';
+import { RootState, useAppDispatch } from 'app/store';
+import { categories } from 'data';
 import { Footer } from '../../common/components/Footer';
 import { Header } from '../../common/components/header/Header';
-import { categories } from '../../data';
 
 type ContextProps = {
-  user: null | string;
-
-  login: (username: string) => void;
+  username: null | string;
+  token: null | string;
+  login: (username: string, password: string) => void;
   logout: () => void;
 };
 
 const AuthContext = createContext<ContextProps>({
-  user: null,
-  login: (username: string) => {},
+  username: null,
+  token: null,
+  login: (username: string, password: string) => {},
   logout: () => {},
 });
 
@@ -22,10 +26,13 @@ type Props = {
 };
 
 const PageLayout = ({ children }: Props) => {
-  const [user, setUser] = useState<null | string>(null);
+  const auth = useSelector((state: RootState) => state.auth);
+  const dispatch = useAppDispatch();
 
-  const login = (username: string) => {
-    setUser(username);
+  const { token, username } = auth;
+
+  const login = (username: string, password: string) => {
+    dispatch(loginAsync({ username: username, password: '' }));
   };
 
   const logout = () => {
@@ -33,7 +40,7 @@ const PageLayout = ({ children }: Props) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ username, token, login, logout }}>
       <Header categories={categories} />
       <main>{children}</main>
       <Footer />

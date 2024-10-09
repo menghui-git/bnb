@@ -11,10 +11,10 @@ type Props = {
 
 export const LoginPopup = ({ show, onLoginClick, onSignupClick }: Props) => {
   const className = `${styles.popup} ${show ? '' : 'hidden'}`;
-  const { user, logout } = useContext(AuthContext);
+  const { username, logout } = useContext(AuthContext);
 
   const options = [];
-  if (user) {
+  if (username) {
     options.push({ name: 'Log out', onClick: logout });
   } else {
     options.push({ name: 'Log in', onClick: onLoginClick });

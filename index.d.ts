@@ -125,6 +125,18 @@ declare namespace API {
   type Image = {
     url: string;
   };
+
+  type LoginData = {
+    username: string;
+    password: string;
+  };
+
+  type SignUpData = {
+    username: string;
+    email: string;
+    password: string;
+    password2: string;
+  };
 }
 
 type ReactEventClick = React.MouseEvent<HTMLElement, MouseEvent>;
