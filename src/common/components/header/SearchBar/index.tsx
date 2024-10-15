@@ -1,26 +1,22 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { RootState, useAppDispatch } from 'app/store';
 import { DateRangePopup } from '../CalenderPopup';
 import { GuestPopup } from '../GuestPopup';
 import { LocationSearchField, SearchField } from '../SearchField';
 import styles from './index.module.scss';
+import { setLocation } from './SearchBarSlice';
 
 export const SearchBar = () => {
-  // search data
-  const [location, setLocation] = useState('');
-  const [checkIn, setCheckIn] = useState<null | Date>(null);
-  const [checkOut, setCheckOut] = useState<null | Date>(null);
-  const [guestData, setGuestData] = useState({
-    adult: 0,
-    child: 0,
-    infant: 0,
-    pet: 0,
-  });
-
   const [showDatePopup, setShowDatePopup] = useState(false);
   const [showGuestPopup, setShowGuestPopup] = useState(false);
+
+  const dispatch = useAppDispatch();
+  const searchBar = useSelector((state: RootState) => state.searchBar);
+  const { location, checkIn, checkOut, guestData } = searchBar;
 
   useEffect(() => {
     const handleWindowClick = (e: MouseEvent) => {
@@ -45,9 +41,12 @@ export const SearchBar = () => {
     setShowGuestPopup(!showGuestPopup);
   };
 
-  const getDateString = (date?: Date) => {
+  const getDateString = (date?: string) => {
     if (date)
-      return date.toLocaleString('default', { month: 'short', day: 'numeric' });
+      return new Date(date).toLocaleString('default', {
+        month: 'short',
+        day: 'numeric',
+      });
   };
 
   const getGuestString = ({ adult, child, infant, pet }: GuestData) => {
@@ -75,7 +74,9 @@ export const SearchBar = () => {
           label="Where"
           placeholder="Search destinations"
           value={location}
-          onChange={setLocation}
+          onChange={(e) => {
+            dispatch(setLocation(e.target.value));
+          }}
         />
         <SearchField
           label="Check in"
@@ -91,10 +92,10 @@ export const SearchBar = () => {
         />
         <div className={styles.search}>
           <SearchField
-            onClick={onGuestFieldClick}
             label="Who"
             placeholder="Add guests"
             value={getGuestString(guestData)}
+            onClick={onGuestFieldClick}
           />
           <div className={styles['search-icon']}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -102,18 +103,8 @@ export const SearchBar = () => {
         </div>
       </form>
       <div className={styles['popup-container']}>
-        <DateRangePopup
-          className={showDatePopup ? '' : 'hidden'}
-          startDate={checkIn!}
-          setStartDate={setCheckIn}
-          endDate={checkOut!}
-          setEndDate={setCheckOut}
-        />
-        <GuestPopup
-          className={showGuestPopup ? '' : 'hidden'}
-          value={guestData}
-          onValueChange={(value) => setGuestData(value)}
-        />
+        <DateRangePopup className={showDatePopup ? '' : 'hidden'} />
+        <GuestPopup className={showGuestPopup ? '' : 'hidden'} />
       </div>
     </div>
   );

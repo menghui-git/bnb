@@ -3,24 +3,32 @@ import { useRef, useState } from 'react';
 import { Calendar } from 'common/components/Calendar';
 import styles from './index.module.scss';
 
-type Props = {
-  className: string;
-  startDate?: Date;
-  setStartDate: (value: Date) => void;
-  endDate?: Date;
-  setEndDate: (value: Date) => void;
-};
-
 const monthCount = 12;
 const tabList = ['Dates', 'Months', 'Flexible'];
 
-export const DateRangePopup = ({
-  className,
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate,
-}: Props) => {
+const getMonthYearList = (month: number, year: number, count: number) => {
+  const list = [
+    { month, year },
+    { month, year },
+  ];
+  for (let i = 0; i < count; i++) {
+    if (month < 11) {
+      month++;
+    } else {
+      year++;
+      month = 0;
+    }
+    list.push({ month, year });
+  }
+
+  return list;
+};
+
+type Props = {
+  className: string;
+};
+
+export const DateRangePopup = ({ className }: Props) => {
   const today = new Date();
   const month = today.getMonth();
   const year = today.getFullYear();
@@ -29,24 +37,6 @@ export const DateRangePopup = ({
   const [hoveredDate, setHoveredDate] = useState<null | Date>(null);
 
   const refCalendarRow = useRef<HTMLDivElement>(null);
-
-  const getMonthYearList = (month: number, year: number, count: number) => {
-    const list = [
-      { month: month, year: year },
-      { month: month, year: year },
-    ];
-    for (let i = 0; i < count; i++) {
-      if (month < 11) {
-        month++;
-      } else {
-        year++;
-        month = 0;
-      }
-      list.push({ month: month, year: year });
-    }
-
-    return list;
-  };
 
   const monthYearList = getMonthYearList(month, year, monthCount);
 
@@ -113,20 +103,12 @@ export const DateRangePopup = ({
         <Calendar
           month={monthYearList[monthIndex]['month']}
           year={monthYearList[monthIndex]['year']}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate!}
-          setEndDate={setEndDate}
           hoveredDate={hoveredDate!}
           setHoveredDate={setHoveredDate}
         />
         <Calendar
           month={monthYearList[monthIndex + 1]['month']}
           year={monthYearList[monthIndex + 1]['year']}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate!}
-          setEndDate={setEndDate}
           hoveredDate={hoveredDate!}
           setHoveredDate={setHoveredDate}
           showLeftButton={!isFirstMonth()}
@@ -135,10 +117,6 @@ export const DateRangePopup = ({
         <Calendar
           month={monthYearList[monthIndex + 2]['month']}
           year={monthYearList[monthIndex + 2]['year']}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate!}
-          setEndDate={setEndDate}
           hoveredDate={hoveredDate!}
           setHoveredDate={setHoveredDate}
           showRightButton={!isLastMonth()}
@@ -147,10 +125,6 @@ export const DateRangePopup = ({
         <Calendar
           month={monthYearList[monthIndex + 3]['month']}
           year={monthYearList[monthIndex + 3]['year']}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate!}
-          setEndDate={setEndDate}
           hoveredDate={hoveredDate!}
           setHoveredDate={setHoveredDate}
         />
