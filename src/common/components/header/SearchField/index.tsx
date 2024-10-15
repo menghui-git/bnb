@@ -9,7 +9,7 @@ export const LocationSearchField = ({
   label: string;
   placeholder: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
     <div className={styles['search-field']}>
@@ -18,7 +18,7 @@ export const LocationSearchField = ({
         type="text"
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
         size={placeholder.length + 1}
       />
     </div>

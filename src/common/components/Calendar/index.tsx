@@ -1,4 +1,7 @@
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from 'app/store';
 import { LeftButton, RightButton } from '../buttons';
+import { setCheckDates } from '../header/SearchBar/SearchBarSlice';
 import styles from './index.module.scss';
 
 const daysInMonth = (month: number, year: number) => {
@@ -44,34 +47,60 @@ const WeekDay = ({ day }: { day: string }) => {
 
 const CalendarDate = ({
   date,
-  state,
   disabled,
-  inRange,
-  onClick,
+  hoveredDate,
   onMouseOver,
 }: {
-  date: number;
+  date: null | Date;
   disabled: boolean;
-  state: 'none' | 'left' | 'right';
-  inRange: boolean;
-  onClick: () => void;
   hoveredDate?: Date;
   onMouseOver: () => void;
 }) => {
+  const dispatch = useAppDispatch();
+  const searchBar = useSelector((state: RootState) => state.searchBar);
+  const { checkIn, checkOut } = searchBar;
+  const startDate = new Date(checkIn!);
+  const endDate = new Date(checkOut!);
+
+  const targetEndDate = endDate ?? hoveredDate;
+
+  const inRange = () => {
+    if (!date) return false;
+
+    if (!startDate || !targetEndDate) return false;
+
+    return (
+      startDate < targetEndDate && date >= startDate! && date <= targetEndDate!
+    );
+  };
+
+  const getDateState = () => {
+    if (!startDate || !date) return 'none';
+    if (+date === +startDate) {
+      return 'left';
+    }
+    if (+date === +targetEndDate) {
+      return 'right';
+    }
+
+    return 'none';
+  };
+  const state = getDateState();
+
   return (
     <div
       className={styles['date-bg']}
-      data-in-range={inRange}
+      data-in-range={inRange()}
       data-state={state}
     >
       <button
         className={styles.date}
         disabled={disabled}
         data-selected={state === 'left' || state === 'right'}
-        onClick={onClick}
+        onClick={() => dispatch(setCheckDates(date!.toISOString()))}
         onMouseOver={onMouseOver}
       >
-        {date}
+        {date ? date.getDate() : null}
       </button>
     </div>
   );
@@ -82,10 +111,6 @@ const weekdays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 export const Calendar = ({
   month,
   year,
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate,
   hoveredDate,
   setHoveredDate,
   showLeftButton = false,
@@ -95,10 +120,6 @@ export const Calendar = ({
 }: {
   month: number;
   year: number;
-  startDate?: Date;
-  setStartDate: (value: Date) => void;
-  endDate?: Date;
-  setEndDate: (value: Date) => void;
   hoveredDate?: Date;
   setHoveredDate: (value: Date) => void;
   showLeftButton?: boolean;
@@ -111,46 +132,10 @@ export const Calendar = ({
   const monthName = firstDay.toLocaleString('default', { month: 'long' });
   const dates = getDateList(month, year);
 
-  const onClick = (date: null | Date) => {
-    if (!startDate) {
-      setStartDate(date!);
-    } else if (date! < startDate) {
-      setStartDate(date!);
-      setEndDate(null!);
-    } else {
-      setEndDate(date!);
-    }
-  };
-
   const onMouseOver = (date: null | Date) => {
-    if (date && date >= today) setHoveredDate(date);
-  };
-
-  const getDateState = (date: number) => {
-    const targetEndDate = endDate ? endDate : hoveredDate;
-    if (!startDate) return 'none';
-    if (month === startDate?.getMonth() && date === startDate?.getDate()) {
-      return 'left';
+    if (date && date >= today) {
+      setHoveredDate(date);
     }
-    if (
-      month === targetEndDate?.getMonth() &&
-      date === targetEndDate?.getDate()
-    ) {
-      return 'right';
-    }
-
-    return 'none';
-  };
-
-  const isInRange = (date: null | Date) => {
-    if (!date) return false;
-
-    const targetEndDate = endDate ? endDate : hoveredDate;
-    if (!startDate || !targetEndDate) return false;
-
-    return (
-      startDate < targetEndDate && date >= startDate! && date <= targetEndDate!
-    );
   };
 
   return (
@@ -176,11 +161,8 @@ export const Calendar = ({
           return (
             <CalendarDate
               key={index}
-              date={dateNumber}
-              onClick={() => onClick(date)}
+              date={date}
               disabled={date ? date < today! : true}
-              state={getDateState(dateNumber)}
-              inRange={isInRange(date)}
               hoveredDate={hoveredDate}
               onMouseOver={() => onMouseOver(date)}
             />

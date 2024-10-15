@@ -1,6 +1,9 @@
+import { useSelector } from 'react-redux';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
+import { RootState, useAppDispatch } from 'app/store';
 import { IconButton } from '../../buttons';
+import { setGuestData } from '../SearchBar/SearchBarSlice';
 import styles from './index.module.scss';
 
 const Panel = ({
@@ -40,43 +43,44 @@ const Panel = ({
 
 type Props = {
   className: string;
-  value: GuestData;
-  onValueChange: (value: GuestData) => void;
 };
 
-export const GuestPopup = ({ className, value, onValueChange }: Props) => {
+export const GuestPopup = ({ className }: Props) => {
   // TODO: set adult to 1 while other fields are set first
   // TODO: handle max count
+  const dispatch = useAppDispatch();
+  const searchBar = useSelector((state: RootState) => state.searchBar);
+  const value = searchBar.guestData;
+  const { adult, child, infant, pet } = searchBar.guestData;
+
   const optionList = [
     {
       name: 'Adults',
       desc: 'Ages 13 or above',
-      count: value.adult,
-      disabled:
-        value.adult === 0 ||
-        (value.adult === 1 && value.child + value.infant + value.pet > 0),
-      setCount: (v: number) => onValueChange({ ...value, adult: v }),
+      count: adult,
+      disabled: adult === 0 || (adult === 1 && child + infant + pet > 0),
+      setCount: (v: number) => dispatch(setGuestData({ ...value, adult: v })),
     },
     {
       name: 'Children',
       desc: 'Ages 2 - 12',
-      count: value.child,
-      disabled: value.child === 0,
-      setCount: (v: number) => onValueChange({ ...value, child: v }),
+      count: child,
+      disabled: child === 0,
+      setCount: (v: number) => dispatch(setGuestData({ ...value, child: v })),
     },
     {
       name: 'Infants',
       desc: 'under 2',
-      count: value.infant,
-      disabled: value.infant === 0,
-      setCount: (v: number) => onValueChange({ ...value, infant: v }),
+      count: infant,
+      disabled: infant === 0,
+      setCount: (v: number) => dispatch(setGuestData({ ...value, infant: v })),
     },
     {
       name: 'Pets',
       desc: 'Bringing a service animal?',
-      count: value.pet,
-      disabled: value.pet === 0,
-      setCount: (v: number) => onValueChange({ ...value, pet: v }),
+      count: pet,
+      disabled: pet === 0,
+      setCount: (v: number) => dispatch(setGuestData({ ...value, pet: v })),
     },
   ];
 
