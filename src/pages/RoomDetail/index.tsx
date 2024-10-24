@@ -30,11 +30,21 @@ import styles from './index.module.scss';
 const getPhotoGrids = (room: API.RoomDetail) => {
   return (
     <div className={styles['photo-grid-container']}>
-      <img className={styles['photo-1']} src={room.xl_picture_url} alt="" />
-      <img className={styles['photo-2']} src={room.xl_picture_url} alt="" />
-      <img className={styles['photo-3']} src={room.xl_picture_url} alt="" />
-      <img className={styles['photo-4']} src={room.xl_picture_url} alt="" />
-      <img className={styles['photo-5']} src={room.xl_picture_url} alt="" />
+      <div className={`${styles['photo']} ${styles['photo-main']}`}>
+        <img src={room.xl_picture_url} alt="" />
+      </div>
+      <div className={styles['photo']}>
+        <img src={room.xl_picture_url} alt="" />
+      </div>
+      <div className={styles['photo']}>
+        <img src={room.xl_picture_url} alt="" />
+      </div>
+      <div className={styles['photo']}>
+        <img src={room.xl_picture_url} alt="" />
+      </div>
+      <div className={styles['photo']}>
+        <img src={room.xl_picture_url} alt="" />
+      </div>
     </div>
   );
 };
@@ -56,13 +66,11 @@ const getAmenities = (amenities: string[] = []) => {
   // show the first 8 amenities
   const amenityItems = amenities.slice(0, DisplayCount).map((amenity) => (
     <div className={styles.amenity} key={amenity}>
-      <div>
-        <FontAwesomeIcon
-          className={styles['fa-icon']}
-          icon={amenityIconMap[amenity]}
-        />
-      </div>
-      <div className={styles['amenity-name']}>{amenity}</div>
+      <FontAwesomeIcon
+        className={styles['amenity-icon']}
+        icon={amenityIconMap[amenity]}
+      />
+      {amenity}
     </div>
   ));
 
@@ -113,9 +121,11 @@ const ReviewType = ({
     <div className={styles['score-item']}>
       <div>
         <div>{name}</div>
-        <div>{value}</div>
+        <div className={styles['score-number']}>{value}</div>
       </div>
-      <FontAwesomeIcon icon={icon} />
+      <div className={styles['score-icon']}>
+        <FontAwesomeIcon icon={icon} />
+      </div>
     </div>
   );
 };
@@ -199,14 +209,14 @@ export const RoomDetail = () => {
       <div className={styles['room-body']}>
         <div className={styles['room-header']}>
           <h1>{room.name}</h1>
-          <div className={styles['room-action']}>
-            <div>
+          <div className={styles['action-nav']}>
+            <div className={styles['action']}>
               <FontAwesomeIcon icon={faArrowUpFromBracket} />
-              Share
+              <div>Share</div>
             </div>
-            <div>
+            <div className={styles['action']}>
               <FontAwesomeIcon icon={faHeart} />
-              Save
+              <div>Save</div>
             </div>
           </div>
         </div>

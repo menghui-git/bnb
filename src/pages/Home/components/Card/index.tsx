@@ -63,18 +63,21 @@ const RoomOverview = ({
   currency: string;
 }) => {
   return (
-    <>
-      <div className={styles['room-overview']}>
+    <div className={styles['card-text']}>
+      <div className={styles['location']}>
         <div>{room.smart_location}</div>
         <div className={styles.rating}>
-          <FontAwesomeIcon icon={faStar} />
+          <FontAwesomeIcon icon={faStar} className={styles['star']} />
           <div>{room.review_scores_rating / 20}</div>
         </div>
       </div>
       <div>
-        ${room.price} {currency} night
+        <span className={styles['price']}>
+          ${room.price} {currency}
+        </span>
+        <span> night</span>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -91,8 +94,7 @@ export const Card = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const [position, setPosition] = useState(0);
   const imageListRef = useRef<HTMLDivElement>(null);
 
-  const cardStyle =
-    styles.card + ' ' + (isImageLoading ? styles['not-display'] : '');
+  const cardStyle = styles.card + ' ' + (isImageLoading ? 'not-display' : '');
   const roomLink = `/room/${room.id}`;
   const imgCount = room.images.length;
 

@@ -35,7 +35,7 @@ const getAsync = async <TData>(url: string) => {
 };
 
 const getRoom = async (roomId: string) => {
-  const url = `${API_URL}/room/${roomId}`;
+  const url = `${API_URL}/rooms/${roomId}`;
   const roomData = await getAsync<API.RoomDetail>(url);
 
   return roomData;
