@@ -1,11 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { login, signUp } from 'data';
-
-type AuthState = {
-  username: string;
-  token: string;
-};
+import { AuthState } from './appState';
 
 const initialState: AuthState = {
   // TODO: handle loading
@@ -48,5 +44,5 @@ const signUpAsync = createAsyncThunk(
   },
 );
 
-export { loginAsync, signUpAsync };
-export default authSlice.reducer;
+export { loginAsync, signUpAsync, setToken, setUsername };
+export default authSlice;
