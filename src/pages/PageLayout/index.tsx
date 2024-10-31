@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 
 import { useSelector } from 'react-redux';
-import { loginAsync } from 'app/authSlice';
+import { loginAsync, setToken, setUsername } from 'app/authSlice';
 import { RootState, useAppDispatch } from 'app/store';
 import { categories } from 'data';
 import { Footer } from '../../common/components/Footer';
@@ -36,6 +36,8 @@ const PageLayout = ({ children }: Props) => {
   };
 
   const logout = () => {
+    dispatch(setToken(''));
+    dispatch(setUsername(''));
     window.location.reload();
   };
 

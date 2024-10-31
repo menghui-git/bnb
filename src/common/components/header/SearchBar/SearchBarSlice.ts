@@ -1,17 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { SearchBarState } from 'app/types';
 
 type GuestData = {
   adult: number;
   child: number;
   infant: number;
   pet: number;
-};
-
-type SearchBarState = {
-  location: string;
-  checkIn: null | string;
-  checkOut: null | string;
-  guestData: GuestData;
 };
 
 const initialState: SearchBarState = {
@@ -53,4 +47,4 @@ const searchBarSlice = createSlice({
 
 export const { setLocation, setCheckDates, setGuestData } =
   searchBarSlice.actions;
-export default searchBarSlice.reducer;
+export default searchBarSlice;

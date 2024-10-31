@@ -1,11 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-type RoomListState = {
-  rooms: API.Room[];
-  pageCount: number;
-  pageIndex: number;
-  totalPages: number;
-};
+import { RoomListState } from 'app/types';
 
 const initialState: RoomListState = {
   rooms: [],
@@ -30,4 +24,4 @@ const roomListSlice = createSlice({
 });
 
 export const { loadNewPage, updateRooms } = roomListSlice.actions;
-export default roomListSlice.reducer;
+export default roomListSlice;

@@ -1,21 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-type SignUpState = {
-  loading: boolean;
-  saving: boolean;
-  data: {
-    fullName: string;
-    email: string;
-    password: string;
-    password2: string;
-    passwordHidden: boolean;
-    passwordHidden2: boolean;
-    fullNameError: string;
-    emailError: string;
-    passwordError: string;
-    password2Error: string;
-  };
-};
+import { SignUpState } from 'app/types';
 
 const initialState: SignUpState = {
   loading: false,
@@ -126,4 +110,4 @@ export const {
   toggleDisplayPassword2,
   clearData,
 } = signUpSlice.actions;
-export default signUpSlice.reducer;
+export default signUpSlice;
