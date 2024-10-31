@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SearchBarState } from 'app/appState';
+import { SearchBarState } from 'app/types';
 
 type GuestData = {
   adult: number;

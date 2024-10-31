@@ -4,7 +4,7 @@ import authSlice from 'app/authSlice';
 import searchBarSlice from 'common/components/header/SearchBar/SearchBarSlice';
 import signUpSlice from 'common/components/modals/SignUpModal/signUpSlice';
 import roomListSlice from 'pages/Home/roomListSlice';
-import { listenerMiddleware, reHydrateStore } from './localStore';
+import { listenerMiddleware, reHydrateStore } from './local-store-middleware';
 
 export const store = configureStore({
   reducer: {

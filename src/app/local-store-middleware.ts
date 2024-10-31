@@ -6,11 +6,12 @@ import {
 } from '@reduxjs/toolkit';
 import authSlice from 'app/authSlice';
 import searchBarSlice from 'common/components/header/SearchBar/SearchBarSlice';
-import { AppState } from './appState';
+import { AppState } from './types';
 
 // put all the slices which access localStorage here
 const cachedSlices = [authSlice, searchBarSlice];
 
+// to get the listened slice actions for the listener middleware
 const getSliceActions = (slices: Slice[]) => {
   const actions: ActionCreatorWithPayload<string, string>[] = [];
   slices.forEach((slice) => {
@@ -21,27 +22,23 @@ const getSliceActions = (slices: Slice[]) => {
 };
 
 const listenerMiddleware = createListenerMiddleware();
-
 listenerMiddleware.startListening({
   matcher: isAnyOf(...getSliceActions(cachedSlices)),
   effect: (action, listenerApi) => {
-    const sliceName = action.type.split('/')[0];
-    const cachedState = listenerApi.getState() as AppState;
-    localStorage.setItem(
-      sliceName,
-      JSON.stringify(cachedState[sliceName as keyof AppState]),
-    );
+    // get the slice name and state from action and listenerApi,
+    // and use them as the key and value to set localStorage
+    const sliceName = action.type.split('/')[0] as keyof AppState; // i.e. auth, searchBar
+    const sliceState = (listenerApi.getState() as AppState)[sliceName];
+    localStorage.setItem(sliceName, JSON.stringify(sliceState));
   },
 });
 
-type PartialStoreState = Partial<AppState>;
-
 const reHydrateStore = (): {} => {
-  const localStore: PartialStoreState = {};
+  const localStore: Partial<AppState> = {};
   cachedSlices.forEach((slice) => {
     const state = localStorage.getItem(slice.name);
     if (state) {
-      localStore[slice.name as keyof PartialStoreState] = JSON.parse(state);
+      localStore[slice.name as keyof AppState] = JSON.parse(state);
     }
   });
 

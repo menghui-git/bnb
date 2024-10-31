@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RoomListState } from 'app/appState';
+import { RoomListState } from 'app/types';
 
 const initialState: RoomListState = {
   rooms: [],

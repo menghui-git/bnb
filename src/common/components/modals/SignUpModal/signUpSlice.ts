@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SignUpState } from 'app/appState';
+import { SignUpState } from 'app/types';
 
 const initialState: SignUpState = {
   loading: false,

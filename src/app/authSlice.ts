@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { login, signUp } from 'data';
-import { AuthState } from './appState';
+import { AuthState } from './types';
 
 const initialState: AuthState = {
   // TODO: handle loading
