@@ -1,0 +1,41 @@
+.room-header {
+  display: flex;
+  justify-content: space-between;
+
+  .action-nav {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+
+    .action {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: underline;
+    }
+  }
+}
+
+.photo-grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  height: 50vh;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  overflow: hidden;
+  border-radius: 10px;
+
+  .photo {
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .photo-main {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+  }
+}
