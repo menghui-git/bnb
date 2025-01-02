@@ -1,0 +1,49 @@
+.room-info-box {
+  border: 2px solid #dddddd;
+  border-radius: 10px;
+  width: fit-content;
+  padding: 20px;
+  margin: 20px 0px;
+}
+
+.host-box {
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+
+  .host-pic {
+    width: 2.5rem;
+    border-radius: 50%;
+  }
+
+  .host-info {
+    font-size: 0.875rem;
+    color: #6a6a6a;
+  }
+}
+
+.amenity-container {
+  display: grid;
+  row-gap: 1rem;
+  grid-template-columns: repeat(2, auto);
+
+  .amenity {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .amenity-icon {
+      font-size: 1.5rem;
+      display: block;
+      width: 1.5rem;
+    }
+  }
+}
+
+.amenity-info-box {
+  border: 2px solid darkslategray;
+  border-radius: 10px;
+  width: fit-content;
+  padding: 15px;
+  margin: 20px 0px;
+}
